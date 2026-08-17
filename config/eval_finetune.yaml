@@ -1,8 +1,8 @@
-model_path: ../scratch/tofu_finetuned_5epoch_aya_all_lang_5e5/
-save_dir: ../scratch/eval_finetune_aya_ar/
+model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5
+save_dir: ${hydra:runtime.cwd}/outputs/eval_finetune_aya_ar
 
 batch_size: 24
-data_path: ./full_ar
+data_path: ${hydra:runtime.cwd}/dataset/full_merged_all_10_lang
 language: ar
 eval_task: eval_log
 question_key: question
@@ -17,4 +17,4 @@ ds_size: null
 overwrite: true
 use_pretrained: false
 
-model_family: aya-expanse-8B 
+model_family: aya-expanse-8B

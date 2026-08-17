@@ -14,9 +14,7 @@ from utils import get_model_identifiers_from_yaml
 
 @hydra.main(version_base=None, config_path="config", config_name="finetune")
 def main(cfg):
-    if os.environ.get('LOCAL_RANK') is not None:
-        local_rank = int(os.environ.get('LOCAL_RANK', '0'))
-        device_map = {'': local_rank}
+    local_rank = int(os.environ.get('LOCAL_RANK', 0))
     set_seed(cfg.seed)
     os.environ["WANDB_DISABLED"] = "true"
     model_cfg = get_model_identifiers_from_yaml(cfg.model_family)
@@ -29,17 +27,19 @@ def main(cfg):
         with open(f'{cfg.save_dir}/cfg.yaml', 'w') as f:
             OmegaConf.save(cfg, f)
 
+    batch_size = cfg.batch_size
+    gradient_accumulation_steps = cfg.gradient_accumulation_steps
+    # --nproc_per_node gives the number of GPUs per = num_devices. take it from torchrun/os.environ
+    num_devices = int(os.environ.get('WORLD_SIZE', 1))
+    if local_rank == 0:
+        print(f"Using {num_devices} GPU(s) for training")
+    print(f"num_devices: {num_devices}")
+
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     tokenizer.pad_token = tokenizer.eos_token
 
     max_length = 500
     torch_format_dataset = TextDatasetQA(cfg.data_path, tokenizer=tokenizer, model_family = cfg.model_family, max_length=max_length)
-
-    batch_size = cfg.batch_size
-    gradient_accumulation_steps = cfg.gradient_accumulation_steps
-    # --nproc_per_node gives the number of GPUs per = num_devices. take it from torchrun/os.environ
-    num_devices = int(os.environ.get('WORLD_SIZE', 1))
-    print(f"num_devices: {num_devices}")
 
     
     max_steps = int(cfg.num_epochs*len(torch_format_dataset))//(batch_size*gradient_accumulation_steps*num_devices)
@@ -92,8 +92,16 @@ def main(cfg):
         trainer.train()
 
 
-    model.save_pretrained(cfg.save_dir)
-    tokenizer.save_pretrained(cfg.save_dir)
+    if trainer.is_world_process_zero():
+        model.save_pretrained(cfg.save_dir)
+        tokenizer.save_pretrained(cfg.save_dir)
 
 if __name__ == "__main__":
+    if os.environ.get("LOCAL_RANK") is None and torch.cuda.is_available() and torch.cuda.device_count() > 1:
+        import subprocess
+        import sys
+
+        nproc = torch.cuda.device_count()
+        cmd = ["torchrun", f"--nproc_per_node={nproc}", sys.argv[0], *sys.argv[1:]]
+        raise SystemExit(subprocess.call(cmd))
     main()

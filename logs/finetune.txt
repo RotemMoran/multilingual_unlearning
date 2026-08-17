@@ -1,0 +1,26 @@
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████| 4/4 [02:18<00:00, 34.70s/it]
+[2026-08-13 18:33:33,033][accelerate.utils.other][WARNING] - [RANK 0] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+max_steps is given, it will override any value given in num_train_epochs
+  0%|                                                                                                                      | 0/16666 [00:00<?, ?it/s]Could not estimate the number of tokens of the input, floating-point operations will not be computed
+{'loss': 1.8995, 'grad_norm': 33.25, 'learning_rate': 4.998499849984999e-06, 'epoch': 0.25}                                                          
+{'loss': 1.5239, 'grad_norm': 40.25, 'learning_rate': 9.996999699969998e-06, 'epoch': 0.5}                                                           
+{'loss': 1.3787, 'grad_norm': 37.75, 'learning_rate': 1.4995499549954997e-05, 'epoch': 0.75}                                                         
+{'loss': 1.2382, 'grad_norm': 38.0, 'learning_rate': 1.9993999399939995e-05, 'epoch': 1.0}                                                           
+{'loss': 0.9701, 'grad_norm': 33.75, 'learning_rate': 1.8751968799219982e-05, 'epoch': 1.25}                                                          
+{'loss': 0.8648, 'grad_norm': 42.25, 'learning_rate': 1.7502437560939026e-05, 'epoch': 1.5}                                                           
+{'loss': 0.7973, 'grad_norm': 40.75, 'learning_rate': 1.625290632265807e-05, 'epoch': 1.75}                                                           
+{'loss': 0.7221, 'grad_norm': 38.25, 'learning_rate': 1.500337508437711e-05, 'epoch': 2.0}                                                            
+{'loss': 0.3824, 'grad_norm': 47.5, 'learning_rate': 1.3753843846096154e-05, 'epoch': 2.25}                                                           
+{'loss': 0.3705, 'grad_norm': 48.0, 'learning_rate': 1.2504312607815196e-05, 'epoch': 2.5}                                                            
+{'loss': 0.3552, 'grad_norm': 43.25, 'learning_rate': 1.125478136953424e-05, 'epoch': 2.75}                                                                                                
+{'loss': 0.3452, 'grad_norm': 49.5, 'learning_rate': 1.0005250131253282e-05, 'epoch': 3.0}                                                                                                 
+{'loss': 0.1587, 'grad_norm': 47.0, 'learning_rate': 8.755718892972325e-06, 'epoch': 3.25}                                                                                                 
+{'loss': 0.1561, 'grad_norm': 38.25, 'learning_rate': 7.506187654691368e-06, 'epoch': 3.5}                                                                                                 
+{'loss': 0.1528, 'grad_norm': 37.5, 'learning_rate': 6.25665641641041e-06, 'epoch': 3.75}                                                                                                  
+{'loss': 0.151, 'grad_norm': 41.0, 'learning_rate': 5.007125178129454e-06, 'epoch': 4.0}                                                                                                   
+{'loss': 0.0816, 'grad_norm': 31.25, 'learning_rate': 3.7575939398484966e-06, 'epoch': 4.25}                                                                                               
+{'loss': 0.0786, 'grad_norm': 45.0, 'learning_rate': 2.5080627015675395e-06, 'epoch': 4.5}                                                                                                 
+{'loss': 0.0809, 'grad_norm': 36.5, 'learning_rate': 1.2585314632865822e-06, 'epoch': 4.75}                                                                                                
+ 95%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▍      | 15876/16666  95%|███████████████████████████████████████████████████████████████████████████████████████████████████████▊     | 15877/16666 [71:25:50<3:27:57, 15.81s/it] {'loss': 0.0794, 'grad_norm': 35.25, 'learning_rate': 9.000225005625141e-09, 'epoch': 5.0}                                                                   
+{'train_runtime': 271356.3874, 'train_samples_per_second': 0.737, 'train_steps_per_second': 0.061, 'train_loss': 0.5891855355036097, 'epoch': 5.0}           
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 16666/16666 [75:22:36<00:00, 16.28s/it]

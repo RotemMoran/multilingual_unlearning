@@ -1,5 +1,5 @@
 model_family: aya-expanse-8B
-model_path: ../scratch/tofu_finetuned_5epoch_aya_10_lang_2e5/
+model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5
 
 lr: 2e-5
 
@@ -10,8 +10,8 @@ lr: 2e-5
 language: hi
 split: forget01
 data_path:
-  forget: ./trans_tofu/forget01_${language}
-  retain: ./trans_tofu/retain99_${language}
+  forget: ${hydra:runtime.cwd}/dataset/forget01_${language}
+  retain: ${hydra:runtime.cwd}/dataset/retain99_${language}
 
 
 batch_size: 6

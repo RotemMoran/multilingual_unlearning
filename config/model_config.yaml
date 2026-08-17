@@ -24,7 +24,7 @@ aya-expanse-8B:
     ko: "답변: "          # Korean
     ru: "Ответ: "         # Russian
   flash_attention2: "true"
-  gradient_checkpointing: "false"
+  gradient_checkpointing: "true"
   ft_model_path: "maral/tofu_ft_aya"
 
 
