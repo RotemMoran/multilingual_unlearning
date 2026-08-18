@@ -1,0 +1,25 @@
+[2026-08-17 23:22:34] python:        /labhome/rmoran/scratch/conda/envs/tofu/bin/python
+[2026-08-17 23:22:34] forget loss:   grad_diff
+[2026-08-17 23:22:34] batch:         2 x 3 accumulation steps
+[2026-08-17 23:22:34] steps:         1 2 3 4 5 6
+[2026-08-17 23:22:34] gpu threshold: 40000 MiB free
+[2026-08-17 23:22:34] RUN   step 1: forget iw (grad_diff) -> logs/forget_iw_grad_diff.txt
+[2026-08-17 23:49:17] DONE  step 1: forget iw (grad_diff)
+[2026-08-17 23:49:17] RUN   step 2: eval unlearn_iw on en -> logs/eval_unlearn_iw_en.txt
+[2026-08-17 23:58:40] DONE  step 2: eval unlearn_iw on en -> results/en_iw_transfer/unlearn_iw_eval_en.csv
+[2026-08-17 23:58:40] RUN   step 3: eval unlearn_iw on iw -> logs/eval_unlearn_iw_iw.txt
+[2026-08-18 00:07:02] DONE  step 3: eval unlearn_iw on iw -> results/en_iw_transfer/unlearn_iw_eval_iw.csv
+[2026-08-18 00:07:02] RUN   step 4: eval unlearn_en_iw on en -> logs/eval_unlearn_en_iw_en.txt
+[2026-08-18 00:18:18] DONE  step 4: eval unlearn_en_iw on en -> results/en_iw_transfer/unlearn_en_iw_eval_en.csv
+[2026-08-18 00:18:18] RUN   step 5: eval unlearn_en_iw on iw -> logs/eval_unlearn_en_iw_iw.txt
+[2026-08-18 00:28:53] DONE  step 5: eval unlearn_en_iw on iw -> results/en_iw_transfer/unlearn_en_iw_eval_iw.csv
+[2026-08-18 00:28:54] RUN   step 6: eval unlearn_en on iw -> logs/eval_unlearn_en_iw.txt
+[2026-08-18 00:36:42] DONE  step 6: eval unlearn_en on iw -> results/en_iw_transfer/unlearn_en_eval_iw.csv
+
+[2026-08-18 00:36:42] summary
+  OK      step 1: forget iw (grad_diff)
+  OK      step 2: eval unlearn_iw on en -> results/en_iw_transfer/unlearn_iw_eval_en.csv
+  OK      step 3: eval unlearn_iw on iw -> results/en_iw_transfer/unlearn_iw_eval_iw.csv
+  OK      step 4: eval unlearn_en_iw on en -> results/en_iw_transfer/unlearn_en_iw_eval_en.csv
+  OK      step 5: eval unlearn_en_iw on iw -> results/en_iw_transfer/unlearn_en_iw_eval_iw.csv
+  OK      step 6: eval unlearn_en on iw -> results/en_iw_transfer/unlearn_en_eval_iw.csv
