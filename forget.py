@@ -1,7 +1,7 @@
 from data_module import TextForgetDatasetQA
 from dataloader import CustomTrainerForgetting, custom_data_collator_forget, custom_data_collator_forget_kl
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, set_seed
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, set_seed, BitsAndBytesConfig
 
 import hydra 
 import transformers
@@ -91,23 +91,39 @@ def main(cfg):
             seed=cfg.seed
 
         )
-    # Load the main model on GPU 0 (cuda:0)
+    main_device = torch.device("cuda:0")
+    single_gpu = torch.cuda.device_count() <= 1
+
     model = AutoModelForCausalLM.from_pretrained(
         cfg.model_path, 
         attn_implementation="flash_attention_2" if model_cfg["flash_attention2"] == "true" else None,
         torch_dtype=torch.bfloat16, 
         trust_remote_code=True
-    ).to("cuda:0")  
+    ).to(main_device)
     
-    # Load the oracle model on GPU 1 (cuda:1), only if needed
     oracle_model = None
     if cfg.forget_loss == "KL" or cfg.forget_loss == "grad_diff_KL" or cfg.forget_loss == "npo":
-        oracle_model = AutoModelForCausalLM.from_pretrained(
-            cfg.model_path, 
-            attn_implementation="flash_attention_2" if model_cfg["flash_attention2"] == "true" else None,
-            torch_dtype=torch.bfloat16, 
-            trust_remote_code=True
-        ).to("cuda:1") 
+        if single_gpu:
+            print("Only one GPU detected; loading oracle model in 4-bit on cuda:0 (~5 GB VRAM)")
+            oracle_quant_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.bfloat16,
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type="nf4",
+            )
+            oracle_model = AutoModelForCausalLM.from_pretrained(
+                cfg.model_path,
+                quantization_config=oracle_quant_config,
+                device_map={"": 0},
+                trust_remote_code=True,
+            )
+        else:
+            oracle_model = AutoModelForCausalLM.from_pretrained(
+                cfg.model_path, 
+                attn_implementation="flash_attention_2" if model_cfg["flash_attention2"] == "true" else None,
+                torch_dtype=torch.bfloat16, 
+                trust_remote_code=True
+            ).to("cuda:1")
         oracle_model.eval()
 
     model.generation_config.do_sample = True
@@ -148,7 +164,7 @@ def main(cfg):
         tokenizer.save_pretrained(cfg.save_dir)
 
     #delete all "global_step*" files in the save_dir/checkpoint-*/ directories
-    if local_rank == 0:
+    if int(os.environ.get('LOCAL_RANK', 0)) == 0:
         for file in Path(cfg.save_dir).glob("checkpoint-*"):
             for global_step_dir in file.glob("global_step*"):
                 #delete the directory

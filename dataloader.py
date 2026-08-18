@@ -55,8 +55,9 @@ class CustomTrainerForgetting(Trainer):
 
     def _create_oracle_model(self, reference_model):
         with torch.no_grad():
+            oracle_device = next(reference_model.parameters()).device
             model_copy = reference_model.__class__(reference_model.config)  
-            model_copy.to("cuda:1")  
+            model_copy.to(oracle_device)
             model_copy.load_state_dict(reference_model.state_dict(), strict=True) 
 
             model_copy.eval() 
@@ -138,13 +139,15 @@ class CustomTrainerForgetting(Trainer):
             current_probs = F.log_softmax(current_outputs.logits, dim=-1)
             current_probs = current_probs.view(-1, current_outputs.logits.shape[-1])
             
+            model_device = next(model.parameters()).device
+            oracle_device = next(self.oracle_model.parameters()).device
             with torch.no_grad():
-                normal_outputs = self.oracle_model(normal_input_ids.to("cuda:1"),labels=normal_labels.to("cuda:1"), attention_mask=normal_attention_mask.to("cuda:1"))
+                normal_outputs = self.oracle_model(normal_input_ids.to(oracle_device), labels=normal_labels.to(oracle_device), attention_mask=normal_attention_mask.to(oracle_device))
             normal_probs = F.log_softmax(normal_outputs.logits, dim=-1)
             normal_probs = normal_probs.view(-1, normal_outputs.logits.shape[-1])
 
             #minimum KL divergence
-            normal_loss = nn.functional.kl_div(current_probs, normal_probs.to("cuda:0"), reduction='batchmean', log_target=True)
+            normal_loss = nn.functional.kl_div(current_probs, normal_probs.to(model_device), reduction='batchmean', log_target=True)
             loss += normal_loss
         
         elif self.loss_type == "npo":
@@ -173,13 +176,15 @@ class CustomTrainerForgetting(Trainer):
             current_probs = F.log_softmax(current_outputs.logits, dim=-1)
             current_probs = current_probs.view(-1, current_outputs.logits.shape[-1])
             
+            model_device = next(model.parameters()).device
+            oracle_device = next(self.oracle_model.parameters()).device
             with torch.no_grad():
-                retain_outputs = self.oracle_model(retain_input_ids.to("cuda:1"),labels=retain_labels.to("cuda:1"), attention_mask=retain_attention_mask.to("cuda:1"))
+                retain_outputs = self.oracle_model(retain_input_ids.to(oracle_device), labels=retain_labels.to(oracle_device), attention_mask=retain_attention_mask.to(oracle_device))
             retain_probs = F.log_softmax(retain_outputs.logits, dim=-1)
             retain_probs = retain_probs.view(-1, retain_outputs.logits.shape[-1])
 
             #minimum KL divergence
-            retain_loss = nn.functional.kl_div(current_probs, retain_probs.to("cuda:0"), reduction='batchmean', log_target=True)
+            retain_loss = nn.functional.kl_div(current_probs, retain_probs.to(model_device), reduction='batchmean', log_target=True)
             loss = forget_loss + retain_loss
 
         elif self.loss_type == "idk":

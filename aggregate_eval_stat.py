@@ -79,20 +79,21 @@ def get_model_utility(eval_result_dict):
 
 @hydra.main(version_base=None, config_path="config", config_name="aggregate_eval_stat")
 def main(cfg):
-    if cfg.retain_result is None or cfg.ckpt_result is None:
-        raise ValueError("Please provide either retain_result or ckpt_result")
-    
-    retain_result = json.load(open(cfg.retain_result))
+    if cfg.ckpt_result is None:
+        raise ValueError("Please provide ckpt_result")
+
     ckpt_result = json.load(open(cfg.ckpt_result))
 
-    # We have to assume here that retain_result and ckpt_result follow these structure:
+    # We have to assume here that ckpt_result (and optional retain_result) follow this structure:
     # The top most layer has ['eval_log.json', 'eval_log_forget.json', 'eval_real_world_wo_options.json', 'eval_real_author_wo_options']
     # the second layer contains the actual metrics: ['avg_gt_loss', 'average_perturb_loss', 'avg_paraphrased_loss', 'rougeL_recall']
     # within each metric, we have {data_idx: measurement}
 
     model_utility = get_model_utility(ckpt_result)
-    forget_quality = get_forget_quality(ckpt_result, retain_result)
-    model_utility['Forget Quality'] = forget_quality['Forget Quality']
+    if cfg.retain_result is not None:
+        retain_result = json.load(open(cfg.retain_result))
+        forget_quality = get_forget_quality(ckpt_result, retain_result)
+        model_utility['Forget Quality'] = forget_quality['Forget Quality']
 
     model_utility['Method'] = cfg.method_name
     model_utility['Submitted By'] = cfg.submitted_by

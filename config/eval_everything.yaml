@@ -1,4 +1,4 @@
-model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/npo_2e-05_forget01_5_fa
+model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_en
 model_family: aya-expanse-8B
 language: en
 save_dir: ${model_path}/eval_results/ds_size${ds_size}_${language}
@@ -66,7 +66,7 @@ ds_size: null
 overwrite: true
 use_pretrained: false
 
-batch_size: 30
+batch_size: 16
 reinitialize_weights: false
 
 retain_result: null

@@ -3,24 +3,25 @@ model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5
 
 lr: 2e-5
 
-# language: en
-# split: forget01
-# data_path: locuslab/TOFU
-
-language: iw
+# joint unlearning: the forget and retain sets of every listed language are
+# concatenated, each example keeps its own language for prompt formatting
+language: [en, iw]
+lang_tag: en+iw
 split: forget01
 data_path:
-  forget: ${hydra:runtime.cwd}/dataset/forget01_${language}
-  retain: ${hydra:runtime.cwd}/dataset/retain99_${language}
+  en: locuslab/TOFU
+  iw:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_iw
+    retain: ${hydra:runtime.cwd}/dataset/retain99_iw
 
 
 batch_size: 2
 gradient_accumulation_steps: 3
 num_epochs: 5
-forget_loss: grad_diff_KL
+forget_loss: npo
 beta: 1.
 gamma: 1.
-save_dir: ${model_path}/${forget_loss}_${lr}_${split}_${num_epochs}_${language}
+save_dir: ${model_path}/${forget_loss}_${lr}_${split}_${num_epochs}_${lang_tag}
 overwrite_dir: false
 weight_decay: 0.01
 save_model: true

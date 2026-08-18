@@ -1,0 +1,51 @@
+# Evaluation config for the non-English languages. Identical to eval_everything.yaml
+# except that the four perturbed TOFU splits are read from dataset/<split>_<language>
+# on disk instead of from the hub. Pick the language with language=<code>.
+model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_iw
+model_family: aya-expanse-8B
+language: iw
+save_dir: ${model_path}/eval_results/ds_size${ds_size}_${language}
+
+# dataset path for each of the 4 datasets to be evaluated
+retain_path: ${hydra:runtime.cwd}/dataset/retain_perturbed_${language}
+real_authors_path: ${hydra:runtime.cwd}/dataset/real_authors_perturbed_${language}
+world_facts_path: ${hydra:runtime.cwd}/dataset/world_facts_perturbed_${language}
+forget_path: ${hydra:runtime.cwd}/dataset/forget01_perturbed_${language}
+data_path:
+  - ${retain_path}
+  - ${real_authors_path}
+  - ${world_facts_path}
+  - ${forget_path}
+
+# split names are unused for the on-disk datasets, they are kept so the config
+# stays interchangeable with eval_everything.yaml
+split: forget01_perturbed
+split_list:
+  - retain_perturbed
+  - real_authors_perturbed
+  - world_facts_perturbed
+  - ${split}
+
+question_key: [question, question, question, question]
+answer_key: [answer, answer, answer, answer]
+
+base_answer_key: [paraphrased_answer, answer, answer, paraphrased_answer]
+perturbed_answer_key: [perturbed_answer, perturbed_answer, perturbed_answer, perturbed_answer]
+
+eval_task: [eval_log, eval_real_author_wo_options, eval_real_world_wo_options, eval_log_forget]
+
+generation:
+  max_length: 200
+  max_new_tokens: null
+
+save_generated_text: true
+
+ds_size: null
+
+overwrite: true
+use_pretrained: false
+
+batch_size: 16
+reinitialize_weights: false
+
+retain_result: null

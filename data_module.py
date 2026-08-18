@@ -197,20 +197,44 @@ def get_batch_loss(output, labels):
 
     return loss
 
+def load_forget_retain(entry, split):
+    # a plain string points at a hub dataset whose splits are derived from `split`,
+    # a mapping points at the on-disk forget/retain pair
+    if isinstance(entry, str):
+        forget_data = datasets.load_dataset(entry, split)["train"]
+        retain_split = "retain" + str(100 - int(split.replace("forget", ""))).zfill(2)
+        retain_data = datasets.load_dataset(entry, retain_split)["train"]
+    else:
+        forget_data = datasets.load_from_disk(entry["forget"])['train']
+        retain_data = datasets.load_from_disk(entry["retain"])['train']
+    return forget_data, retain_data
+
+
+def tag_language(data, language):
+    extra_columns = [c for c in data.column_names if c not in ("question", "answer")]
+    if extra_columns:
+        data = data.remove_columns(extra_columns)
+    return data.add_column("language", [language] * len(data))
+
+
 class TextForgetDatasetQA(Dataset):
     def __init__(self, data_path, tokenizer, model_family, max_length=512, split="forget10", loss_type="idk", language='en'):
         super(TextForgetDatasetQA, self).__init__()
         self.tokenizer = tokenizer
         self.max_length = max_length
         # TODO: fix the data to have two splits.
-        if language == 'en':
-            self.forget_data = datasets.load_dataset(data_path, split)["train"]
-            retain_split = "retain" + str(100 - int(split.replace("forget", ""))).zfill(2)
-            self.retain_data = datasets.load_dataset(data_path, retain_split)["train"]
+        if isinstance(language, str):
+            self.forget_data, self.retain_data = load_forget_retain(data_path, split)
         else:
-            self.forget_data = datasets.load_from_disk(data_path.forget)['train']
-            self.retain_data = datasets.load_from_disk(data_path.retain)['train']
-            print("done!!!")
+            forget_parts, retain_parts = [], []
+            for lang in language:
+                forget_data, retain_data = load_forget_retain(data_path[lang], split)
+                forget_parts.append(tag_language(forget_data, lang))
+                retain_parts.append(tag_language(retain_data, lang))
+            self.forget_data = datasets.concatenate_datasets(forget_parts)
+            self.retain_data = datasets.concatenate_datasets(retain_parts)
+            print(f"loaded {len(self.forget_data)} forget and {len(self.retain_data)} retain examples "
+                  f"for languages {list(language)}")
         self.model_configs = get_model_identifiers_from_yaml(model_family)
         self.loss_type = loss_type
         self.language = language
@@ -233,6 +257,8 @@ class TextForgetDatasetQA(Dataset):
         l = [self.split1, self.split2]
         if self.loss_type == "grad_diff_KL":
             l = [self.split1, self.split2, self.split3]
+        # idx is reassigned inside the loop, so read the forget language up front
+        forget_language = self.forget_data[idx].get('language', self.language)
         for data_type in l:
             # use questions from forget set if split is idk or forget
             if data_type == "normal":
@@ -251,8 +277,11 @@ class TextForgetDatasetQA(Dataset):
                 idx = (idx + torch.randint(0, len(self.normal_data), (1,)).item()) % len(
                 self.normal_data)
                 
-            question = data[idx]['question']   
-            answer = data[idx]['answer'] if data_type != "normal" else data[idx]['best_answer'] 
+            row = data[idx]
+            question = row['question']
+            answer = row['answer'] if data_type != "normal" else row['best_answer']
+            # TruthfulQA carries no language of its own, so it follows the forget example
+            language = forget_language if data_type == "normal" else row.get('language', self.language)
 
             if data_type == "idk":
                 # get a random answer position from idk
@@ -260,6 +289,6 @@ class TextForgetDatasetQA(Dataset):
                 answer = self.idk[rand_pos].strip()
 
             converted_data = convert_raw_data_to_model_format(self.tokenizer, self.max_length, question, answer,
-                                                              self.model_configs, self.language)
+                                                              self.model_configs, language)
             rets.append(converted_data)
         return rets

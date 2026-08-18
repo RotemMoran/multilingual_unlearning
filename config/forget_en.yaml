@@ -8,10 +8,10 @@ split: forget01
 data_path: locuslab/TOFU
 
 
-batch_size: 6
-gradient_accumulation_steps: 1
+batch_size: 2
+gradient_accumulation_steps: 3
 num_epochs: 5
-forget_loss: grad_diff_KL
+forget_loss: npo
 beta: 1.
 gamma: 1.
 save_dir: ${model_path}/${forget_loss}_${lr}_${split}_${num_epochs}_${language}
