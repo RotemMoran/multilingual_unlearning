@@ -59,7 +59,7 @@ def main(cfg):
 
     max_length = 500
 
-    torch_format_dataset = TextForgetDatasetQA(cfg.data_path, tokenizer=tokenizer, model_family = cfg.model_family, max_length=max_length, split=cfg.split, loss_type=cfg.forget_loss, language=cfg.language)
+    torch_format_dataset = TextForgetDatasetQA(cfg.data_path, tokenizer=tokenizer, model_family = cfg.model_family, max_length=max_length, split=cfg.split, loss_type=cfg.forget_loss, language=cfg.language, language_mix=cfg.get('language_mix', 'concat'))
     batch_size = cfg.batch_size
     gradient_accumulation_steps = cfg.gradient_accumulation_steps
     steps_per_epoch = len(torch_format_dataset)//(batch_size*gradient_accumulation_steps*num_devices)
@@ -67,6 +67,9 @@ def main(cfg):
     max_steps = int(cfg.num_epochs*len(torch_format_dataset))//(batch_size*gradient_accumulation_steps)
     print(f"max_steps: {max_steps}")
     print("batch_size:", batch_size)
+    # per-epoch checkpoints cost 16GB each and dominate the wall time on NFS, the
+    # final model is saved separately once training ends
+    keep_epoch_checkpoints = cfg.get('save_epoch_checkpoints', True)
     training_args = transformers.TrainingArguments(
             per_device_train_batch_size=batch_size//torch.cuda.device_count(),
             per_device_eval_batch_size=batch_size//torch.cuda.device_count(),
@@ -80,7 +83,7 @@ def main(cfg):
             logging_dir=f'{cfg.save_dir}/logs',
             output_dir=cfg.save_dir,
             optim="paged_adamw_32bit",
-            save_strategy="steps" if cfg.save_model and (not cfg.eval_only) else "no",
+            save_strategy="steps" if cfg.save_model and (not cfg.eval_only) and keep_epoch_checkpoints else "no",
             save_steps=steps_per_epoch,
             save_only_model=True,
             ddp_find_unused_parameters= False,

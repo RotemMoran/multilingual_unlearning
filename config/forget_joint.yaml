@@ -1,0 +1,99 @@
+model_family: aya-expanse-8B
+model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5
+
+lr: 2e-5
+
+# Joint unlearning in several languages at once. Pick the pair on the command line:
+#   python forget.py --config-name forget_joint language=[en,fr] lang_tag=en+fr
+#
+# language_mix controls how the per-language forget sets are combined:
+#   concat     - every language contributes the whole forget split (2 langs -> 80 examples)
+#   interleave - each example is unlearned in one language only, alternating by row
+#                (2 langs -> 40 examples, 20 per language)
+language: [en, iw]
+lang_tag: en+iw
+language_mix: concat
+split: forget01
+
+# English comes from the hub, the other nine languages are the translated copies on disk
+data_path:
+  en: locuslab/TOFU
+  ar:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_ar
+    retain: ${hydra:runtime.cwd}/dataset/retain99_ar
+  fa:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_fa
+    retain: ${hydra:runtime.cwd}/dataset/retain99_fa
+  fr:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_fr
+    retain: ${hydra:runtime.cwd}/dataset/retain99_fr
+  hi:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_hi
+    retain: ${hydra:runtime.cwd}/dataset/retain99_hi
+  id:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_id
+    retain: ${hydra:runtime.cwd}/dataset/retain99_id
+  iw:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_iw
+    retain: ${hydra:runtime.cwd}/dataset/retain99_iw
+  ja:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_ja
+    retain: ${hydra:runtime.cwd}/dataset/retain99_ja
+  ko:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_ko
+    retain: ${hydra:runtime.cwd}/dataset/retain99_ko
+  ru:
+    forget: ${hydra:runtime.cwd}/dataset/forget01_ru
+    retain: ${hydra:runtime.cwd}/dataset/retain99_ru
+
+
+# effective batch of 6, split so an 8B model fits on one 46GB card
+batch_size: 2
+gradient_accumulation_steps: 3
+num_epochs: 5
+forget_loss: grad_diff
+beta: 1.
+gamma: 1.
+save_dir: ${model_path}/${forget_loss}_${lr}_${split}_${num_epochs}_${lang_tag}
+overwrite_dir: false
+weight_decay: 0.01
+save_model: true
+# only write the final model, not a 16GB checkpoint per epoch
+save_epoch_checkpoints: false
+eval_while_train: false
+eval_only: false
+seed: 42
+
+
+
+eval:
+  model_path: ${..model_path}
+  model_family: ${..model_family}
+  save_dir: ${..save_dir}
+  data_path: [locuslab/TOFU, locuslab/TOFU, locuslab/TOFU, locuslab/TOFU]
+  split: ${..split}_perturbed
+  split_list:
+    - retain_perturbed
+    - real_authors_perturbed
+    - world_facts_perturbed
+    - ${split}
+
+  eval_task: [eval_log, eval_real_author_wo_options, eval_real_world_wo_options, eval_log_forget]
+  question_key: [question, question, question, question]
+  answer_key: [answer, answer, answer, answer]
+  base_answer_key: [paraphrased_answer, answer, answer, paraphrased_answer]
+  perturbed_answer_key: [perturbed_answer, perturbed_answer, perturbed_answer, perturbed_answer]
+
+  generation:
+    max_length: 200
+    max_new_tokens: null
+
+  save_generated_text: true
+
+  ds_size: 300
+
+  overwrite: true
+  use_pretrained: false
+
+  batch_size: 30
+  retain_result: null

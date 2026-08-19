@@ -218,7 +218,8 @@ def tag_language(data, language):
 
 
 class TextForgetDatasetQA(Dataset):
-    def __init__(self, data_path, tokenizer, model_family, max_length=512, split="forget10", loss_type="idk", language='en'):
+    def __init__(self, data_path, tokenizer, model_family, max_length=512, split="forget10", loss_type="idk", language='en',
+                 language_mix="concat"):
         super(TextForgetDatasetQA, self).__init__()
         self.tokenizer = tokenizer
         self.max_length = max_length
@@ -226,15 +227,21 @@ class TextForgetDatasetQA(Dataset):
         if isinstance(language, str):
             self.forget_data, self.retain_data = load_forget_retain(data_path, split)
         else:
+            if language_mix not in ("concat", "interleave"):
+                raise ValueError(f"unknown language_mix {language_mix!r}, expected concat or interleave")
             forget_parts, retain_parts = [], []
-            for lang in language:
+            for pos, lang in enumerate(language):
                 forget_data, retain_data = load_forget_retain(data_path[lang], split)
+                # interleave hands each forget example to a single language, taking
+                # every len(language)-th row, so the union still covers the split once
+                if language_mix == "interleave":
+                    forget_data = forget_data.select(range(pos, len(forget_data), len(language)))
                 forget_parts.append(tag_language(forget_data, lang))
                 retain_parts.append(tag_language(retain_data, lang))
             self.forget_data = datasets.concatenate_datasets(forget_parts)
             self.retain_data = datasets.concatenate_datasets(retain_parts)
             print(f"loaded {len(self.forget_data)} forget and {len(self.retain_data)} retain examples "
-                  f"for languages {list(language)}")
+                  f"for languages {list(language)} ({language_mix})")
         self.model_configs = get_model_identifiers_from_yaml(model_family)
         self.loss_type = loss_type
         self.language = language
