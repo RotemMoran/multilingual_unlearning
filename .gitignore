@@ -18,6 +18,8 @@ __pycache__
 *.err
 *.out
 *.sh
+# the experiment drivers are the reproduction path documented in EXPERIMENTS.md
+!run_*.sh
 paper_models
 notebook/
 
@@ -25,4 +27,7 @@ notebook/
 scripts/
 reproduce.ipynb
 upload_to_hf.py
+
+# datasets.map() writes these next to the saved splits; regenerated on demand
+dataset/**/cache-*.arrow
 

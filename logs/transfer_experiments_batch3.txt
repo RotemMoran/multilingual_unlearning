@@ -1,0 +1,103 @@
+[2026-08-20 19:29:21] python:        /labhome/rmoran/scratch/conda/envs/tofu/bin/python
+[2026-08-20 19:29:21] forget loss:   grad_diff
+[2026-08-20 19:29:21] gpu threshold: 40000 MiB free
+[2026-08-20 19:29:21] experiments:   en+fr_half_5ep en+fr+ja_third_5ep en+fr+ar_third_5ep en+fr+ja+ar_quarter_5ep
+[2026-08-20 19:29:21] SKIP  en+fr_half_5ep: unlearn [en,fr] interleave 5ep - model already exists
+[2026-08-20 19:29:21] SKIP  en+fr_half_5ep: eval on en - results already exist
+[2026-08-20 19:29:21] SKIP  en+fr_half_5ep: eval on fr - results already exist
+[2026-08-20 19:29:21] RUN   en+fr_half_5ep: eval on ar -> logs/eval_en+fr_half_5ep_on_ar.txt
+[2026-08-20 19:37:31] DONE  en+fr_half_5ep: eval on ar -> results/en+fr_half_5ep/eval_ar.csv
+[2026-08-20 19:37:31] RUN   en+fr_half_5ep: eval on fa -> logs/eval_en+fr_half_5ep_on_fa.txt
+[2026-08-20 19:45:28] DONE  en+fr_half_5ep: eval on fa -> results/en+fr_half_5ep/eval_fa.csv
+[2026-08-20 19:45:28] RUN   en+fr_half_5ep: eval on hi -> logs/eval_en+fr_half_5ep_on_hi.txt
+[2026-08-20 19:54:43] DONE  en+fr_half_5ep: eval on hi -> results/en+fr_half_5ep/eval_hi.csv
+[2026-08-20 19:54:43] RUN   en+fr_half_5ep: eval on id -> logs/eval_en+fr_half_5ep_on_id.txt
+[2026-08-20 20:02:11] DONE  en+fr_half_5ep: eval on id -> results/en+fr_half_5ep/eval_id.csv
+[2026-08-20 20:02:11] RUN   en+fr_half_5ep: eval on iw -> logs/eval_en+fr_half_5ep_on_iw.txt
+[2026-08-20 20:10:04] DONE  en+fr_half_5ep: eval on iw -> results/en+fr_half_5ep/eval_iw.csv
+[2026-08-20 20:10:04] RUN   en+fr_half_5ep: eval on ja -> logs/eval_en+fr_half_5ep_on_ja.txt
+[2026-08-20 20:18:17] DONE  en+fr_half_5ep: eval on ja -> results/en+fr_half_5ep/eval_ja.csv
+[2026-08-20 20:18:17] RUN   en+fr_half_5ep: eval on ko -> logs/eval_en+fr_half_5ep_on_ko.txt
+[2026-08-20 20:26:07] DONE  en+fr_half_5ep: eval on ko -> results/en+fr_half_5ep/eval_ko.csv
+[2026-08-20 20:26:07] RUN   en+fr_half_5ep: eval on ru -> logs/eval_en+fr_half_5ep_on_ru.txt
+[2026-08-20 20:33:48] DONE  en+fr_half_5ep: eval on ru -> results/en+fr_half_5ep/eval_ru.csv
+[2026-08-20 20:33:48] RUN   en+fr+ja_third_5ep: unlearn [en,fr,ja] interleave 5ep -> logs/forget_en+fr+ja_third_5ep.txt
+[2026-08-20 20:48:10] DONE  en+fr+ja_third_5ep: unlearn [en,fr,ja] interleave 5ep
+[2026-08-20 20:48:10] RUN   en+fr+ja_third_5ep: eval on en -> logs/eval_en+fr+ja_third_5ep_on_en.txt
+[2026-08-20 20:57:26] DONE  en+fr+ja_third_5ep: eval on en -> results/en+fr+ja_third_5ep/eval_en.csv
+[2026-08-20 20:57:26] RUN   en+fr+ja_third_5ep: eval on fr -> logs/eval_en+fr+ja_third_5ep_on_fr.txt
+[2026-08-20 21:04:40] DONE  en+fr+ja_third_5ep: eval on fr -> results/en+fr+ja_third_5ep/eval_fr.csv
+[2026-08-20 21:04:40] RUN   en+fr+ja_third_5ep: eval on ar -> logs/eval_en+fr+ja_third_5ep_on_ar.txt
+[2026-08-20 21:12:17] DONE  en+fr+ja_third_5ep: eval on ar -> results/en+fr+ja_third_5ep/eval_ar.csv
+[2026-08-20 21:12:17] RUN   en+fr+ja_third_5ep: eval on fa -> logs/eval_en+fr+ja_third_5ep_on_fa.txt
+[2026-08-20 21:19:44] DONE  en+fr+ja_third_5ep: eval on fa -> results/en+fr+ja_third_5ep/eval_fa.csv
+[2026-08-20 21:19:44] RUN   en+fr+ja_third_5ep: eval on hi -> logs/eval_en+fr+ja_third_5ep_on_hi.txt
+[2026-08-20 21:28:58] DONE  en+fr+ja_third_5ep: eval on hi -> results/en+fr+ja_third_5ep/eval_hi.csv
+[2026-08-20 21:28:58] RUN   en+fr+ja_third_5ep: eval on id -> logs/eval_en+fr+ja_third_5ep_on_id.txt
+[2026-08-20 21:35:50] DONE  en+fr+ja_third_5ep: eval on id -> results/en+fr+ja_third_5ep/eval_id.csv
+[2026-08-20 21:35:50] RUN   en+fr+ja_third_5ep: eval on iw -> logs/eval_en+fr+ja_third_5ep_on_iw.txt
+[2026-08-20 21:43:34] DONE  en+fr+ja_third_5ep: eval on iw -> results/en+fr+ja_third_5ep/eval_iw.csv
+[2026-08-20 21:43:34] RUN   en+fr+ja_third_5ep: eval on ja -> logs/eval_en+fr+ja_third_5ep_on_ja.txt
+[2026-08-20 21:51:11] DONE  en+fr+ja_third_5ep: eval on ja -> results/en+fr+ja_third_5ep/eval_ja.csv
+[2026-08-20 21:51:11] RUN   en+fr+ja_third_5ep: eval on ko -> logs/eval_en+fr+ja_third_5ep_on_ko.txt
+[2026-08-20 21:58:43] DONE  en+fr+ja_third_5ep: eval on ko -> results/en+fr+ja_third_5ep/eval_ko.csv
+[2026-08-20 21:58:43] RUN   en+fr+ja_third_5ep: eval on ru -> logs/eval_en+fr+ja_third_5ep_on_ru.txt
+[2026-08-20 22:05:53] DONE  en+fr+ja_third_5ep: eval on ru -> results/en+fr+ja_third_5ep/eval_ru.csv
+[2026-08-20 22:05:53] RUN   en+fr+ar_third_5ep: unlearn [en,fr,ar] interleave 5ep -> logs/forget_en+fr+ar_third_5ep.txt
+[2026-08-20 22:18:21] DONE  en+fr+ar_third_5ep: unlearn [en,fr,ar] interleave 5ep
+[2026-08-20 22:18:22] RUN   en+fr+ar_third_5ep: eval on en -> logs/eval_en+fr+ar_third_5ep_on_en.txt
+[2026-08-20 22:27:35] DONE  en+fr+ar_third_5ep: eval on en -> results/en+fr+ar_third_5ep/eval_en.csv
+[2026-08-20 22:27:35] RUN   en+fr+ar_third_5ep: eval on fr -> logs/eval_en+fr+ar_third_5ep_on_fr.txt
+[2026-08-20 22:34:59] DONE  en+fr+ar_third_5ep: eval on fr -> results/en+fr+ar_third_5ep/eval_fr.csv
+[2026-08-20 22:34:59] RUN   en+fr+ar_third_5ep: eval on ar -> logs/eval_en+fr+ar_third_5ep_on_ar.txt
+[2026-08-20 22:42:41] DONE  en+fr+ar_third_5ep: eval on ar -> results/en+fr+ar_third_5ep/eval_ar.csv
+[2026-08-20 22:42:41] RUN   en+fr+ar_third_5ep: eval on fa -> logs/eval_en+fr+ar_third_5ep_on_fa.txt
+[2026-08-20 22:50:29] DONE  en+fr+ar_third_5ep: eval on fa -> results/en+fr+ar_third_5ep/eval_fa.csv
+[2026-08-20 22:50:29] RUN   en+fr+ar_third_5ep: eval on hi -> logs/eval_en+fr+ar_third_5ep_on_hi.txt
+[2026-08-20 22:59:42] DONE  en+fr+ar_third_5ep: eval on hi -> results/en+fr+ar_third_5ep/eval_hi.csv
+[2026-08-20 22:59:42] RUN   en+fr+ar_third_5ep: eval on id -> logs/eval_en+fr+ar_third_5ep_on_id.txt
+[2026-08-20 23:06:33] DONE  en+fr+ar_third_5ep: eval on id -> results/en+fr+ar_third_5ep/eval_id.csv
+[2026-08-20 23:06:33] RUN   en+fr+ar_third_5ep: eval on iw -> logs/eval_en+fr+ar_third_5ep_on_iw.txt
+[2026-08-20 23:14:14] DONE  en+fr+ar_third_5ep: eval on iw -> results/en+fr+ar_third_5ep/eval_iw.csv
+[2026-08-20 23:14:14] RUN   en+fr+ar_third_5ep: eval on ja -> logs/eval_en+fr+ar_third_5ep_on_ja.txt
+[2026-08-20 23:21:50] DONE  en+fr+ar_third_5ep: eval on ja -> results/en+fr+ar_third_5ep/eval_ja.csv
+[2026-08-20 23:21:50] RUN   en+fr+ar_third_5ep: eval on ko -> logs/eval_en+fr+ar_third_5ep_on_ko.txt
+[2026-08-20 23:29:08] DONE  en+fr+ar_third_5ep: eval on ko -> results/en+fr+ar_third_5ep/eval_ko.csv
+[2026-08-20 23:29:08] RUN   en+fr+ar_third_5ep: eval on ru -> logs/eval_en+fr+ar_third_5ep_on_ru.txt
+[2026-08-20 23:36:17] DONE  en+fr+ar_third_5ep: eval on ru -> results/en+fr+ar_third_5ep/eval_ru.csv
+[2026-08-20 23:36:17] RUN   en+fr+ja+ar_quarter_5ep: unlearn [en,fr,ja,ar] interleave 5ep -> logs/forget_en+fr+ja+ar_quarter_5ep.txt
+[2026-08-20 23:48:17] DONE  en+fr+ja+ar_quarter_5ep: unlearn [en,fr,ja,ar] interleave 5ep
+[2026-08-20 23:48:17] RUN   en+fr+ja+ar_quarter_5ep: eval on en -> logs/eval_en+fr+ja+ar_quarter_5ep_on_en.txt
+[2026-08-20 23:57:38] DONE  en+fr+ja+ar_quarter_5ep: eval on en -> results/en+fr+ja+ar_quarter_5ep/eval_en.csv
+[2026-08-20 23:57:38] RUN   en+fr+ja+ar_quarter_5ep: eval on fr -> logs/eval_en+fr+ja+ar_quarter_5ep_on_fr.txt
+[2026-08-21 00:04:54] DONE  en+fr+ja+ar_quarter_5ep: eval on fr -> results/en+fr+ja+ar_quarter_5ep/eval_fr.csv
+[2026-08-21 00:04:54] RUN   en+fr+ja+ar_quarter_5ep: eval on ar -> logs/eval_en+fr+ja+ar_quarter_5ep_on_ar.txt
+[2026-08-21 00:12:28] DONE  en+fr+ja+ar_quarter_5ep: eval on ar -> results/en+fr+ja+ar_quarter_5ep/eval_ar.csv
+[2026-08-21 00:12:28] RUN   en+fr+ja+ar_quarter_5ep: eval on fa -> logs/eval_en+fr+ja+ar_quarter_5ep_on_fa.txt
+[2026-08-21 00:20:18] DONE  en+fr+ja+ar_quarter_5ep: eval on fa -> results/en+fr+ja+ar_quarter_5ep/eval_fa.csv
+[2026-08-21 00:20:18] RUN   en+fr+ja+ar_quarter_5ep: eval on hi -> logs/eval_en+fr+ja+ar_quarter_5ep_on_hi.txt
+[2026-08-21 00:29:36] DONE  en+fr+ja+ar_quarter_5ep: eval on hi -> results/en+fr+ja+ar_quarter_5ep/eval_hi.csv
+[2026-08-21 00:29:36] RUN   en+fr+ja+ar_quarter_5ep: eval on id -> logs/eval_en+fr+ja+ar_quarter_5ep_on_id.txt
+[2026-08-21 00:36:40] DONE  en+fr+ja+ar_quarter_5ep: eval on id -> results/en+fr+ja+ar_quarter_5ep/eval_id.csv
+[2026-08-21 00:36:40] RUN   en+fr+ja+ar_quarter_5ep: eval on iw -> logs/eval_en+fr+ja+ar_quarter_5ep_on_iw.txt
+[2026-08-21 00:44:16] DONE  en+fr+ja+ar_quarter_5ep: eval on iw -> results/en+fr+ja+ar_quarter_5ep/eval_iw.csv
+[2026-08-21 00:44:16] RUN   en+fr+ja+ar_quarter_5ep: eval on ja -> logs/eval_en+fr+ja+ar_quarter_5ep_on_ja.txt
+[2026-08-21 00:51:41] DONE  en+fr+ja+ar_quarter_5ep: eval on ja -> results/en+fr+ja+ar_quarter_5ep/eval_ja.csv
+[2026-08-21 00:51:41] RUN   en+fr+ja+ar_quarter_5ep: eval on ko -> logs/eval_en+fr+ja+ar_quarter_5ep_on_ko.txt
+[2026-08-21 00:58:57] DONE  en+fr+ja+ar_quarter_5ep: eval on ko -> results/en+fr+ja+ar_quarter_5ep/eval_ko.csv
+[2026-08-21 00:58:57] RUN   en+fr+ja+ar_quarter_5ep: eval on ru -> logs/eval_en+fr+ja+ar_quarter_5ep_on_ru.txt
+[2026-08-21 01:06:05] DONE  en+fr+ja+ar_quarter_5ep: eval on ru -> results/en+fr+ja+ar_quarter_5ep/eval_ru.csv
+./run_transfer_experiments.sh: line 231: d: command not found
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: unlearn [en,fr,ja,ar] interleave 5ep - model already exists
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on en - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on fr - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on ar - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on fa - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on hi - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on id - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on iw - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on ja - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on ko - results already exist
+[2026-08-21 01:06:05] SKIP  en+fr+ja+ar_quarter_5ep: eval on ru - results already exist
+./run_transfer_experiments.sh: line 244: syntax error near unexpected token `done'
+./run_transfer_experiments.sh: line 244: `done'

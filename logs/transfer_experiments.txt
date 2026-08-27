@@ -1,0 +1,96 @@
+[2026-08-19 21:08:57] python:        /labhome/rmoran/scratch/conda/envs/tofu/bin/python
+[2026-08-19 21:08:57] forget loss:   grad_diff
+[2026-08-19 21:08:57] gpu threshold: 40000 MiB free
+[2026-08-19 21:08:57] experiments:   all
+[2026-08-19 21:08:57] RUN   en+iw_2ep: unlearn [en,iw] concat 2ep -> logs/forget_en+iw_2ep.txt
+[2026-08-19 21:18:44] DONE  en+iw_2ep: unlearn [en,iw] concat 2ep
+[2026-08-19 21:18:44] RUN   en+iw_2ep: eval on en -> logs/eval_en+iw_2ep_on_en.txt
+[2026-08-19 21:28:02] DONE  en+iw_2ep: eval on en -> results/en+iw_2ep/eval_en.csv
+[2026-08-19 21:28:02] RUN   en+iw_2ep: eval on iw -> logs/eval_en+iw_2ep_on_iw.txt
+[2026-08-19 21:35:00] DONE  en+iw_2ep: eval on iw -> results/en+iw_2ep/eval_iw.csv
+[2026-08-19 21:35:00] RUN   en+iw_3ep: unlearn [en,iw] concat 3ep -> logs/forget_en+iw_3ep.txt
+[2026-08-19 21:52:02] DONE  en+iw_3ep: unlearn [en,iw] concat 3ep
+[2026-08-19 21:52:02] RUN   en+iw_3ep: eval on en -> logs/eval_en+iw_3ep_on_en.txt
+[2026-08-19 22:01:02] DONE  en+iw_3ep: eval on en -> results/en+iw_3ep/eval_en.csv
+[2026-08-19 22:01:02] RUN   en+iw_3ep: eval on iw -> logs/eval_en+iw_3ep_on_iw.txt
+[2026-08-19 22:08:29] DONE  en+iw_3ep: eval on iw -> results/en+iw_3ep/eval_iw.csv
+[2026-08-19 22:08:29] RUN   en+fr_5ep: unlearn [en,fr] concat 5ep -> logs/forget_en+fr_5ep.txt
+[2026-08-19 22:28:17] DONE  en+fr_5ep: unlearn [en,fr] concat 5ep
+[2026-08-19 22:28:17] RUN   en+fr_5ep: eval on en -> logs/eval_en+fr_5ep_on_en.txt
+[2026-08-19 22:41:32] DONE  en+fr_5ep: eval on en -> results/en+fr_5ep/eval_en.csv
+[2026-08-19 22:41:32] RUN   en+fr_5ep: eval on fr -> logs/eval_en+fr_5ep_on_fr.txt
+[2026-08-19 22:52:20] DONE  en+fr_5ep: eval on fr -> results/en+fr_5ep/eval_fr.csv
+[2026-08-19 22:52:20] RUN   en+fr_3ep: unlearn [en,fr] concat 3ep -> logs/forget_en+fr_3ep.txt
+[2026-08-19 23:05:57] DONE  en+fr_3ep: unlearn [en,fr] concat 3ep
+[2026-08-19 23:05:57] RUN   en+fr_3ep: eval on en -> logs/eval_en+fr_3ep_on_en.txt
+[2026-08-19 23:17:11] DONE  en+fr_3ep: eval on en -> results/en+fr_3ep/eval_en.csv
+[2026-08-19 23:17:11] RUN   en+fr_3ep: eval on fr -> logs/eval_en+fr_3ep_on_fr.txt
+[2026-08-19 23:24:42] DONE  en+fr_3ep: eval on fr -> results/en+fr_3ep/eval_fr.csv
+[2026-08-19 23:24:43] RUN   en+fa_5ep: unlearn [en,fa] concat 5ep -> logs/forget_en+fa_5ep.txt
+[2026-08-19 23:44:53] DONE  en+fa_5ep: unlearn [en,fa] concat 5ep
+[2026-08-19 23:44:53] RUN   en+fa_5ep: eval on en -> logs/eval_en+fa_5ep_on_en.txt
+[2026-08-19 23:54:58] DONE  en+fa_5ep: eval on en -> results/en+fa_5ep/eval_en.csv
+[2026-08-19 23:54:58] RUN   en+fa_5ep: eval on fa -> logs/eval_en+fa_5ep_on_fa.txt
+[2026-08-20 00:05:49] DONE  en+fa_5ep: eval on fa -> results/en+fa_5ep/eval_fa.csv
+[2026-08-20 00:05:49] RUN   en+fa_3ep: unlearn [en,fa] concat 3ep -> logs/forget_en+fa_3ep.txt
+[2026-08-20 00:19:00] DONE  en+fa_3ep: unlearn [en,fa] concat 3ep
+[2026-08-20 00:19:00] RUN   en+fa_3ep: eval on en -> logs/eval_en+fa_3ep_on_en.txt
+[2026-08-20 00:28:37] DONE  en+fa_3ep: eval on en -> results/en+fa_3ep/eval_en.csv
+[2026-08-20 00:28:37] RUN   en+fa_3ep: eval on fa -> logs/eval_en+fa_3ep_on_fa.txt
+[2026-08-20 00:39:04] DONE  en+fa_3ep: eval on fa -> results/en+fa_3ep/eval_fa.csv
+[2026-08-20 00:39:04] RUN   en+ja_5ep: unlearn [en,ja] concat 5ep -> logs/forget_en+ja_5ep.txt
+[2026-08-20 00:59:11] DONE  en+ja_5ep: unlearn [en,ja] concat 5ep
+[2026-08-20 00:59:11] RUN   en+ja_5ep: eval on en -> logs/eval_en+ja_5ep_on_en.txt
+[2026-08-20 01:08:34] DONE  en+ja_5ep: eval on en -> results/en+ja_5ep/eval_en.csv
+[2026-08-20 01:08:34] RUN   en+ja_5ep: eval on ja -> logs/eval_en+ja_5ep_on_ja.txt
+[2026-08-20 01:16:44] DONE  en+ja_5ep: eval on ja -> results/en+ja_5ep/eval_ja.csv
+[2026-08-20 01:16:44] RUN   en+ja_3ep: unlearn [en,ja] concat 3ep -> logs/forget_en+ja_3ep.txt
+[2026-08-20 01:30:29] DONE  en+ja_3ep: unlearn [en,ja] concat 3ep
+[2026-08-20 01:30:29] RUN   en+ja_3ep: eval on en -> logs/eval_en+ja_3ep_on_en.txt
+[2026-08-20 01:39:33] DONE  en+ja_3ep: eval on en -> results/en+ja_3ep/eval_en.csv
+[2026-08-20 01:39:33] RUN   en+ja_3ep: eval on ja -> logs/eval_en+ja_3ep_on_ja.txt
+[2026-08-20 01:46:44] DONE  en+ja_3ep: eval on ja -> results/en+ja_3ep/eval_ja.csv
+[2026-08-20 01:46:44] RUN   en+iw_half_5ep: unlearn [en,iw] interleave 5ep -> logs/forget_en+iw_half_5ep.txt
+[2026-08-20 01:58:23] DONE  en+iw_half_5ep: unlearn [en,iw] interleave 5ep
+[2026-08-20 01:58:23] RUN   en+iw_half_5ep: eval on en -> logs/eval_en+iw_half_5ep_on_en.txt
+[2026-08-20 02:07:25] DONE  en+iw_half_5ep: eval on en -> results/en+iw_half_5ep/eval_en.csv
+[2026-08-20 02:07:25] RUN   en+iw_half_5ep: eval on iw -> logs/eval_en+iw_half_5ep_on_iw.txt
+[2026-08-20 02:14:56] DONE  en+iw_half_5ep: eval on iw -> results/en+iw_half_5ep/eval_iw.csv
+[2026-08-20 02:14:56] RUN   en+fr_half_5ep: unlearn [en,fr] interleave 5ep -> logs/forget_en+fr_half_5ep.txt
+[2026-08-20 02:27:57] DONE  en+fr_half_5ep: unlearn [en,fr] interleave 5ep
+[2026-08-20 02:27:57] RUN   en+fr_half_5ep: eval on en -> logs/eval_en+fr_half_5ep_on_en.txt
+[2026-08-20 02:37:46] DONE  en+fr_half_5ep: eval on en -> results/en+fr_half_5ep/eval_en.csv
+[2026-08-20 02:37:46] RUN   en+fr_half_5ep: eval on fr -> logs/eval_en+fr_half_5ep_on_fr.txt
+[2026-08-20 02:45:23] DONE  en+fr_half_5ep: eval on fr -> results/en+fr_half_5ep/eval_fr.csv
+
+[2026-08-20 02:45:23] summary
+  OK      en+iw_2ep: unlearn [en,iw] concat 2ep
+  OK      en+iw_2ep: eval on en -> results/en+iw_2ep/eval_en.csv
+  OK      en+iw_2ep: eval on iw -> results/en+iw_2ep/eval_iw.csv
+  OK      en+iw_3ep: unlearn [en,iw] concat 3ep
+  OK      en+iw_3ep: eval on en -> results/en+iw_3ep/eval_en.csv
+  OK      en+iw_3ep: eval on iw -> results/en+iw_3ep/eval_iw.csv
+  OK      en+fr_5ep: unlearn [en,fr] concat 5ep
+  OK      en+fr_5ep: eval on en -> results/en+fr_5ep/eval_en.csv
+  OK      en+fr_5ep: eval on fr -> results/en+fr_5ep/eval_fr.csv
+  OK      en+fr_3ep: unlearn [en,fr] concat 3ep
+  OK      en+fr_3ep: eval on en -> results/en+fr_3ep/eval_en.csv
+  OK      en+fr_3ep: eval on fr -> results/en+fr_3ep/eval_fr.csv
+  OK      en+fa_5ep: unlearn [en,fa] concat 5ep
+  OK      en+fa_5ep: eval on en -> results/en+fa_5ep/eval_en.csv
+  OK      en+fa_5ep: eval on fa -> results/en+fa_5ep/eval_fa.csv
+  OK      en+fa_3ep: unlearn [en,fa] concat 3ep
+  OK      en+fa_3ep: eval on en -> results/en+fa_3ep/eval_en.csv
+  OK      en+fa_3ep: eval on fa -> results/en+fa_3ep/eval_fa.csv
+  OK      en+ja_5ep: unlearn [en,ja] concat 5ep
+  OK      en+ja_5ep: eval on en -> results/en+ja_5ep/eval_en.csv
+  OK      en+ja_5ep: eval on ja -> results/en+ja_5ep/eval_ja.csv
+  OK      en+ja_3ep: unlearn [en,ja] concat 3ep
+  OK      en+ja_3ep: eval on en -> results/en+ja_3ep/eval_en.csv
+  OK      en+ja_3ep: eval on ja -> results/en+ja_3ep/eval_ja.csv
+  OK      en+iw_half_5ep: unlearn [en,iw] interleave 5ep
+  OK      en+iw_half_5ep: eval on en -> results/en+iw_half_5ep/eval_en.csv
+  OK      en+iw_half_5ep: eval on iw -> results/en+iw_half_5ep/eval_iw.csv
+  OK      en+fr_half_5ep: unlearn [en,fr] interleave 5ep
+  OK      en+fr_half_5ep: eval on en -> results/en+fr_half_5ep/eval_en.csv
+  OK      en+fr_half_5ep: eval on fr -> results/en+fr_half_5ep/eval_fr.csv

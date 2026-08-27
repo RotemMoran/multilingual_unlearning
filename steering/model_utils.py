@@ -70,6 +70,40 @@ def load_tokenizer(model_cfg, checkpoint=None):
     return tokenizer
 
 
+def build_prompts(data, model_configs, language):
+    """Prompt exactly as the model was trained to see it, question only.
+
+    Shared by extract_steering_vector.py and attack_generate.py so that "the last prompt
+    token" means the same position in both -- the direction has to be injected in the same
+    place it was measured.
+
+    Built from the tags in config/model_config.yaml rather than by decoding input_ids and
+    splitting on "Answer: " the way run_generation does: that round-trip raises IndexError
+    whenever the split symbol and the language disagree.
+    """
+    q_start = model_configs["question_start_tag"][language]
+    q_end = model_configs["question_end_tag"]
+    a_tag = model_configs["answer_tag"][language]
+    return [q_start + row["question"] + q_end + a_tag for row in data]
+
+
+# Xiang et al. inject over a window [c, c+N] and sweep the start layer c, rather than
+# fixing a block of layers. N=2 (a 3-layer window) is their reported setting.
+DEFAULT_WINDOW = 2
+
+
+def window_layers(start, window, n_layers):
+    """Layers [start, start+window], clipped to the model."""
+    if not 0 <= start < n_layers:
+        raise ValueError(f"start layer {start} outside 0..{n_layers - 1}")
+    return list(range(start, min(start + window + 1, n_layers)))
+
+
+def sweep_starts(window, n_layers, stride=1):
+    """Every start layer whose full window fits, as in Algorithm 2 (c = 1..L-N)."""
+    return list(range(0, n_layers - window, stride))
+
+
 LAYER_SETS = {
     "late": lambda n: list(range(int(n * 0.75), n)),
     "middle": lambda n: list(range(int(n * 0.375), int(n * 0.75))),

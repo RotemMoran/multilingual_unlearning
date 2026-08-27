@@ -1,0 +1,59 @@
+Warning: The cache directory for DeepSpeed Triton autotune, /labhome/rmoran/scratch/.triton, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+[93m [WARNING] [0m fp_quantizer compatibility check failed (CUDA_HOME does not exist, unable to compile CUDA op(s)), treating the op as not compatible
+[93m [WARNING] [0m transformer_inference compatibility check failed (CUDA_HOME does not exist, unable to compile CUDA op(s)), treating the op as not compatible
+[93m [WARNING] [0m inference_core_ops compatibility check failed (CUDA_HOME does not exist, unable to compile CUDA op(s)), treating the op as not compatible
+[93m [WARNING] [0m cutlass_ops compatibility check failed (CUDA_HOME does not exist, unable to compile CUDA op(s)), treating the op as not compatible
+[93m [WARNING] [0m ragged_device_ops compatibility check failed (CUDA_HOME does not exist, unable to compile CUDA op(s)), treating the op as not compatible
+[93m [WARNING] [0m ragged_ops compatibility check failed (CUDA_HOME does not exist, unable to compile CUDA op(s)), treating the op as not compatible
+[93m [WARNING] [0m spatial_inference compatibility check failed (CUDA_HOME does not exist, unable to compile CUDA op(s)), treating the op as not compatible
+num_devices: 1
+######################
+Saving to:  /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_en+ar_half
+######################
+Flattening the indices:   0%|          | 0/20 [00:00<?, ? examples/s]Flattening the indices: 100%|██████████| 20/20 [00:00<00:00, 2021.01 examples/s]
+Using the `WANDB_DISABLED` environment variable is deprecated and will be removed in v5. Use the --report_to flag to control the integrations used for logging result (for instance --report_to none).
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+loaded 40 forget and 7920 retain examples for languages ['en', 'ar'] (interleave)
+max_steps: 33
+batch_size: 2
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  2.47it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  2.79it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  2.95it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.07it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.96it/s]
+/home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/dataloader.py:49: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `CustomTrainerForgetting.__init__`. Use `processing_class` instead.
+  super(CustomTrainerForgetting, self).__init__(*args, **kwargs)
+[2026-08-23 17:44:14,412][accelerate.utils.other][WARNING] - [RANK 0] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+max_steps is given, it will override any value given in num_train_epochs
+  0%|          | 0/33 [00:00<?, ?it/s]Could not estimate the number of tokens of the input, floating-point operations will not be computed
+  3%|▎         | 1/33 [00:35<18:43, 35.10s/it]                                                3%|▎         | 1/33 [00:35<18:43, 35.10s/it]  6%|▌         | 2/33 [00:52<12:48, 24.79s/it]                                                6%|▌         | 2/33 [00:52<12:48, 24.79s/it]  9%|▉         | 3/33 [01:10<10:43, 21.47s/it]                                                9%|▉         | 3/33 [01:10<10:43, 21.47s/it] 12%|█▏        | 4/33 [01:27<09:39, 20.00s/it]                                               12%|█▏        | 4/33 [01:27<09:39, 20.00s/it] 15%|█▌        | 5/33 [01:45<08:57, 19.19s/it]                                               15%|█▌        | 5/33 [01:45<08:57, 19.19s/it] 18%|█▊        | 6/33 [02:03<08:24, 18.69s/it]                                               18%|█▊        | 6/33 [02:03<08:24, 18.69s/it] 21%|██        | 7/33 [02:20<07:54, 18.26s/it]                                               21%|██        | 7/33 [02:20<07:54, 18.26s/it] 24%|██▍       | 8/33 [02:38<07:29, 17.98s/it]                                               24%|██▍       | 8/33 [02:38<07:29, 17.98s/it] 27%|██▋       | 9/33 [02:55<07:07, 17.82s/it]                                               27%|██▋       | 9/33 [02:55<07:07, 17.82s/it] 30%|███       | 10/33 [03:13<06:47, 17.70s/it]                                                30%|███       | 10/33 [03:13<06:47, 17.70s/it] 33%|███▎      | 11/33 [03:30<06:28, 17.64s/it]                                                33%|███▎      | 11/33 [03:30<06:28, 17.64s/it] 36%|███▋      | 12/33 [03:47<06:08, 17.55s/it]                                                36%|███▋      | 12/33 [03:47<06:08, 17.55s/it] 39%|███▉      | 13/33 [04:05<05:49, 17.50s/it]                                                39%|███▉      | 13/33 [04:05<05:49, 17.50s/it] 42%|████▏     | 14/33 [04:22<05:32, 17.50s/it]                                                42%|████▏     | 14/33 [04:22<05:32, 17.50s/it] 45%|████▌     | 15/33 [04:40<05:13, 17.44s/it]                                                45%|████▌     | 15/33 [04:40<05:13, 17.44s/it] 48%|████▊     | 16/33 [04:57<04:57, 17.49s/it]                                                48%|████▊     | 16/33 [04:57<04:57, 17.49s/it] 52%|█████▏    | 17/33 [05:14<04:38, 17.42s/it]                                                52%|█████▏    | 17/33 [05:14<04:38, 17.42s/it] 55%|█████▍    | 18/33 [05:32<04:21, 17.43s/it]                                                55%|█████▍    | 18/33 [05:32<04:21, 17.43s/it] 58%|█████▊    | 19/33 [05:49<04:04, 17.44s/it]                                                58%|█████▊    | 19/33 [05:49<04:04, 17.44s/it] 61%|██████    | 20/33 [06:07<03:47, 17.48s/it]                                                61%|██████    | 20/33 [06:07<03:47, 17.48s/it] 64%|██████▎   | 21/33 [06:24<03:29, 17.43s/it]                                                64%|██████▎   | 21/33 [06:24<03:29, 17.43s/it] 67%|██████▋   | 22/33 [06:42<03:11, 17.42s/it]                                                67%|██████▋   | 22/33 [06:42<03:11, 17.42s/it] 70%|██████▉   | 23/33 [06:59<02:54, 17.42s/it]                                                70%|██████▉   | 23/33 [06:59<02:54, 17.42s/it] 73%|███████▎  | 24/33 [07:16<02:36, 17.41s/it]                                                73%|███████▎  | 24/33 [07:16<02:36, 17.41s/it] 76%|███████▌  | 25/33 [07:34<02:19, 17.43s/it]                                                76%|███████▌  | 25/33 [07:34<02:19, 17.43s/it] 79%|███████▉  | 26/33 [07:51<02:02, 17.43s/it]                                                79%|███████▉  | 26/33 [07:51<02:02, 17.43s/it] 82%|████████▏ | 27/33 [08:09<01:44, 17.35s/it]                                                82%|████████▏ | 27/33 [08:09<01:44, 17.35s/it] 85%|████████▍ | 28/33 [08:26<01:26, 17.39s/it]                                                85%|████████▍ | 28/33 [08:26<01:26, 17.39s/it] 88%|████████▊ | 29/33 [08:43<01:09, 17.41s/it]                                                88%|████████▊ | 29/33 [08:43<01:09, 17.41s/it] 91%|█████████ | 30/33 [09:01<00:51, 17.31s/it]                                                91%|█████████ | 30/33 [09:01<00:51, 17.31s/it] 94%|█████████▍| 31/33 [09:18<00:34, 17.35s/it]                                                94%|█████████▍| 31/33 [09:18<00:34, 17.35s/it] 97%|█████████▋| 32/33 [09:35<00:17, 17.37s/it]                                                97%|█████████▋| 32/33 [09:35<00:17, 17.37s/it]100%|██████████| 33/33 [09:53<00:00, 17.35s/it]                                               100%|██████████| 33/33 [09:53<00:00, 17.35s/it]                                               100%|██████████| 33/33 [09:53<00:00, 17.35s/it]100%|██████████| 33/33 [09:53<00:00, 17.98s/it]
+{'loss': -0.513, 'grad_norm': 80.0, 'learning_rate': 3.3333333333333333e-06, 'epoch': 0.15}
+{'loss': -0.3008, 'grad_norm': 110.0, 'learning_rate': 6.666666666666667e-06, 'epoch': 0.3}
+{'loss': -0.8472, 'grad_norm': 78.5, 'learning_rate': 1e-05, 'epoch': 0.45}
+{'loss': -0.5877, 'grad_norm': 83.5, 'learning_rate': 1.3333333333333333e-05, 'epoch': 0.6}
+{'loss': -0.8288, 'grad_norm': 105.5, 'learning_rate': 1.6666666666666667e-05, 'epoch': 0.75}
+{'loss': -1.0684, 'grad_norm': 118.0, 'learning_rate': 2e-05, 'epoch': 0.9}
+{'loss': -2.8589, 'grad_norm': 145.0, 'learning_rate': 1.925925925925926e-05, 'epoch': 1.1}
+{'loss': -1.8353, 'grad_norm': 134.0, 'learning_rate': 1.851851851851852e-05, 'epoch': 1.25}
+{'loss': -1.89, 'grad_norm': 138.0, 'learning_rate': 1.7777777777777777e-05, 'epoch': 1.4}
+{'loss': -3.6738, 'grad_norm': 195.0, 'learning_rate': 1.7037037037037038e-05, 'epoch': 1.55}
+{'loss': -3.2281, 'grad_norm': 192.0, 'learning_rate': 1.6296296296296297e-05, 'epoch': 1.7}
+{'loss': -4.1433, 'grad_norm': 284.0, 'learning_rate': 1.555555555555556e-05, 'epoch': 1.85}
+{'loss': 0.0856, 'grad_norm': 386.0, 'learning_rate': 1.4814814814814815e-05, 'epoch': 2.05}
+{'loss': -3.2077, 'grad_norm': 376.0, 'learning_rate': 1.4074074074074075e-05, 'epoch': 2.2}
+{'loss': -5.9406, 'grad_norm': 400.0, 'learning_rate': 1.3333333333333333e-05, 'epoch': 2.35}
+{'loss': -7.7309, 'grad_norm': 384.0, 'learning_rate': 1.2592592592592593e-05, 'epoch': 2.5}
+{'loss': -3.2013, 'grad_norm': 322.0, 'learning_rate': 1.1851851851851852e-05, 'epoch': 2.65}
+{'loss': -6.2569, 'grad_norm': 404.0, 'learning_rate': 1.1111111111111113e-05, 'epoch': 2.8}
+{'loss': -5.879, 'grad_norm': 378.0, 'learning_rate': 1.037037037037037e-05, 'epoch': 2.95}
+{'loss': -5.4924, 'grad_norm': 296.0, 'learning_rate': 9.62962962962963e-06, 'epoch': 3.15}
+{'loss': -6.7762, 'grad_norm': 310.0, 'learning_rate': 8.888888888888888e-06, 'epoch': 3.3}
+{'loss': -8.2626, 'grad_norm': 416.0, 'learning_rate': 8.148148148148148e-06, 'epoch': 3.45}
+{'loss': -7.9286, 'grad_norm': 266.0, 'learning_rate': 7.4074074074074075e-06, 'epoch': 3.6}
+{'loss': -9.5784, 'grad_norm': 342.0, 'learning_rate': 6.666666666666667e-06, 'epoch': 3.75}
+{'loss': -7.7489, 'grad_norm': 360.0, 'learning_rate': 5.925925925925926e-06, 'epoch': 3.9}
+{'loss': -6.1777, 'grad_norm': 426.0, 'learning_rate': 5.185185185185185e-06, 'epoch': 4.1}
+{'loss': -9.4735, 'grad_norm': 366.0, 'learning_rate': 4.444444444444444e-06, 'epoch': 4.25}
+{'loss': -7.3446, 'grad_norm': 344.0, 'learning_rate': 3.7037037037037037e-06, 'epoch': 4.4}
+{'loss': -10.5621, 'grad_norm': 436.0, 'learning_rate': 2.962962962962963e-06, 'epoch': 4.55}
+{'loss': -8.634, 'grad_norm': 320.0, 'learning_rate': 2.222222222222222e-06, 'epoch': 4.7}
+{'loss': -9.8195, 'grad_norm': 274.0, 'learning_rate': 1.4814814814814815e-06, 'epoch': 4.85}
+{'loss': -3.3873, 'grad_norm': 440.0, 'learning_rate': 7.407407407407407e-07, 'epoch': 5.05}
+{'loss': -6.223, 'grad_norm': 298.0, 'learning_rate': 0.0, 'epoch': 5.2}
+{'train_runtime': 593.1876, 'train_samples_per_second': 0.334, 'train_steps_per_second': 0.056, 'train_loss': -4.88832923995726, 'epoch': 5.2}

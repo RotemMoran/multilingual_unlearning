@@ -1,0 +1,75 @@
+model_family: aya-expanse-8B
+model_path: ${hydra:runtime.cwd}/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5
+
+lr: 2e-5
+
+# The auxiliary unlearning run that the steering vector is read off, per Xiang et al.
+# (arXiv 2606.03291) Section 4.4. This unlearns two *retain* authors out of f_ft, so the
+# resulting f_un_aux differs from f_ft only by the unlearning transformation itself and
+# knows nothing about the real forget01 authors. Build the splits first:
+#
+#   python steering/make_aux_forget.py
+#   python forget.py --config-name forget_aux_en
+#
+# `split` is naming only: load_forget_retain ignores it whenever data_path is a mapping,
+# so it exists here purely to keep save_dir distinct from the real forget01 arms.
+language: en
+split: forget01aux
+data_path:
+  forget: ${hydra:runtime.cwd}/dataset/forget01_aux_en
+  retain: ${hydra:runtime.cwd}/dataset/retain99_aux_en
+
+
+# effective batch of 6, matching every other grad_diff arm in this repo
+batch_size: 2
+gradient_accumulation_steps: 3
+num_epochs: 5
+forget_loss: grad_diff
+beta: 1.
+gamma: 1.
+save_dir: ${model_path}/${forget_loss}_${lr}_${split}_${num_epochs}_${language}
+overwrite_dir: false
+weight_decay: 0.01
+save_model: true
+# only write the final model, not a 16GB checkpoint per epoch
+save_epoch_checkpoints: false
+eval_while_train: false
+eval_only: false
+seed: 42
+
+
+
+# Unused: eval_while_train and eval_only are both false, so CustomTrainerForgetting never
+# reads this. Kept because forget.py passes cfg.eval unconditionally, and pinned to
+# forget01 rather than ${..split} because no `forget01aux_perturbed` split exists.
+eval:
+  model_path: ${..model_path}
+  model_family: ${..model_family}
+  save_dir: ${..save_dir}
+  data_path: [locuslab/TOFU, locuslab/TOFU, locuslab/TOFU, locuslab/TOFU]
+  split: forget01_perturbed
+  split_list:
+    - retain_perturbed
+    - real_authors_perturbed
+    - world_facts_perturbed
+    - forget01
+
+  eval_task: [eval_log, eval_real_author_wo_options, eval_real_world_wo_options, eval_log_forget]
+  question_key: [question, question, question, question]
+  answer_key: [answer, answer, answer, answer]
+  base_answer_key: [paraphrased_answer, answer, answer, paraphrased_answer]
+  perturbed_answer_key: [perturbed_answer, perturbed_answer, perturbed_answer, perturbed_answer]
+
+  generation:
+    max_length: 200
+    max_new_tokens: null
+
+  save_generated_text: true
+
+  ds_size: 300
+
+  overwrite: true
+  use_pretrained: false
+
+  batch_size: 30
+  retain_result: null

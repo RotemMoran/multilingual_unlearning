@@ -1,0 +1,36 @@
+[2026-08-21 05:45:57] python:        /labhome/rmoran/scratch/conda/envs/tofu/bin/python
+[2026-08-21 05:45:57] forget loss:   grad_diff
+[2026-08-21 05:45:57] gpu threshold: 40000 MiB free
+[2026-08-21 05:45:57] experiments:   base
+[2026-08-21 05:45:57] RUN   base: eval on en -> logs/eval_base_on_en.txt
+[2026-08-21 05:52:27] DONE  base: eval on en -> results/base/eval_en.csv
+[2026-08-21 05:52:27] RUN   base: eval on fr -> logs/eval_base_on_fr.txt
+[2026-08-21 05:59:18] DONE  base: eval on fr -> results/base/eval_fr.csv
+[2026-08-21 05:59:18] RUN   base: eval on ar -> logs/eval_base_on_ar.txt
+[2026-08-21 06:06:26] DONE  base: eval on ar -> results/base/eval_ar.csv
+[2026-08-21 06:06:26] RUN   base: eval on fa -> logs/eval_base_on_fa.txt
+[2026-08-21 06:13:35] DONE  base: eval on fa -> results/base/eval_fa.csv
+[2026-08-21 06:13:35] RUN   base: eval on hi -> logs/eval_base_on_hi.txt
+[2026-08-21 06:22:40] DONE  base: eval on hi -> results/base/eval_hi.csv
+[2026-08-21 06:22:40] RUN   base: eval on id -> logs/eval_base_on_id.txt
+[2026-08-21 06:29:16] DONE  base: eval on id -> results/base/eval_id.csv
+[2026-08-21 06:29:16] RUN   base: eval on iw -> logs/eval_base_on_iw.txt
+[2026-08-21 06:36:21] DONE  base: eval on iw -> results/base/eval_iw.csv
+[2026-08-21 06:36:21] RUN   base: eval on ja -> logs/eval_base_on_ja.txt
+[2026-08-21 06:43:15] DONE  base: eval on ja -> results/base/eval_ja.csv
+[2026-08-21 06:43:15] RUN   base: eval on ko -> logs/eval_base_on_ko.txt
+[2026-08-21 06:50:15] DONE  base: eval on ko -> results/base/eval_ko.csv
+[2026-08-21 06:50:15] RUN   base: eval on ru -> logs/eval_base_on_ru.txt
+[2026-08-21 06:56:56] DONE  base: eval on ru -> results/base/eval_ru.csv
+
+[2026-08-21 06:56:56] summary
+  OK      base: eval on en -> results/base/eval_en.csv
+  OK      base: eval on fr -> results/base/eval_fr.csv
+  OK      base: eval on ar -> results/base/eval_ar.csv
+  OK      base: eval on fa -> results/base/eval_fa.csv
+  OK      base: eval on hi -> results/base/eval_hi.csv
+  OK      base: eval on id -> results/base/eval_id.csv
+  OK      base: eval on iw -> results/base/eval_iw.csv
+  OK      base: eval on ja -> results/base/eval_ja.csv
+  OK      base: eval on ko -> results/base/eval_ko.csv
+  OK      base: eval on ru -> results/base/eval_ru.csv

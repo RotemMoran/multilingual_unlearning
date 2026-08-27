@@ -1,0 +1,80 @@
+(tofu) rmoran@il-mmplex-021:/home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning$ python forget.py --config-name forget_en_iw forget_loss=grad_diff
+Warning: The cache directory for DeepSpeed Triton autotune, /labhome/rmoran/scratch/.triton, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+num_devices: 1
+######################
+Saving to:  /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_en+iw
+######################
+loaded 80 forget and 7920 retain examples for languages ['en', 'iw']
+max_steps: 66
+batch_size: 6
+Using the `WANDB_DISABLED` environment variable is deprecated and will be removed in v5. Use the --report_to flag to control the integrations used for logging result (for instance --report_to none).
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:01<00:00,  2.08it/s]
+/home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/dataloader.py:49: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `CustomTrainerForgetting.__init__`. Use `processing_class` instead.
+  super(CustomTrainerForgetting, self).__init__(*args, **kwargs)
+[2026-08-17 22:20:30,052][accelerate.utils.other][WARNING] - [RANK 0] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+max_steps is given, it will override any value given in num_train_epochs
+  0%|                                                                                                                                                        | 0/66 [00:00<?, ?it/s]Error executing job with overrides: ['forget_loss=grad_diff']
+Traceback (most recent call last):
+  File "/home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/forget.py", line 159, in main
+    trainer.train()
+  File "/labhome/rmoran/scratch/conda/envs/tofu/lib/python3.10/site-packages/transformers/trainer.py", line 2123, in train
+    return inner_training_loop(
+  File "/labhome/rmoran/scratch/conda/envs/tofu/lib/python3.10/site-packages/transformers/trainer.py", line 2481, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/labhome/rmoran/scratch/conda/envs/tofu/lib/python3.10/site-packages/transformers/trainer.py", line 3612, in training_step
+    self.accelerator.backward(loss, **kwargs)
+  File "/labhome/rmoran/scratch/conda/envs/tofu/lib/python3.10/site-packages/accelerate/accelerator.py", line 2850, in backward
+    loss.backward(**kwargs)
+  File "/labhome/rmoran/scratch/conda/envs/tofu/lib/python3.10/site-packages/torch/_tensor.py", line 581, in backward
+    torch.autograd.backward(
+  File "/labhome/rmoran/scratch/conda/envs/tofu/lib/python3.10/site-packages/torch/autograd/__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "/labhome/rmoran/scratch/conda/envs/tofu/lib/python3.10/site-packages/torch/autograd/graph.py", line 825, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.86 GiB. GPU 0 has a total capacity of 44.39 GiB of which 2.79 GiB is free. Including non-PyTorch memory, this process has 41.59 GiB memory in use. Of the allocated memory 36.53 GiB is allocated by PyTorch, and 4.55 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+  0%|                                                                                                                                                        | 0/66 [00:03<?, ?it/s]
+(tofu) rmoran@il-mmplex-021:/home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning$ python forget.py --config-name forget_en_iw forget_loss=grad_diff
+Warning: The cache directory for DeepSpeed Triton autotune, /labhome/rmoran/scratch/.triton, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
+num_devices: 1
+######################
+Saving to:  /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_en+iw
+######################
+loaded 80 forget and 7920 retain examples for languages ['en', 'iw']
+max_steps: 66
+batch_size: 2
+Using the `WANDB_DISABLED` environment variable is deprecated and will be removed in v5. Use the --report_to flag to control the integrations used for logging result (for instance --report_to none).
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00,  4.39it/s]
+/home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/dataloader.py:49: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `CustomTrainerForgetting.__init__`. Use `processing_class` instead.
+  super(CustomTrainerForgetting, self).__init__(*args, **kwargs)
+[2026-08-17 22:21:44,185][accelerate.utils.other][WARNING] - [RANK 0] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+max_steps is given, it will override any value given in num_train_epochs
+  0%|                                                                                                                                                        | 0/66 [00:00<?, ?it/s]Could not estimate the number of tokens of the input, floating-point operations will not be computed
+{'loss': -0.3668, 'grad_norm': 90.5, 'learning_rate': 4.615384615384616e-06, 'epoch': 0.23}
+{'loss': -0.3442, 'grad_norm': 73.0, 'learning_rate': 9.230769230769232e-06, 'epoch': 0.45}
+{'loss': -0.3538, 'grad_norm': 91.0, 'learning_rate': 1.3846153846153847e-05, 'epoch': 0.68}
+{'loss': -0.5501, 'grad_norm': 110.0, 'learning_rate': 1.8461538461538465e-05, 'epoch': 0.9}
+{'loss': -1.4267, 'grad_norm': 147.0, 'learning_rate': 1.9245283018867927e-05, 'epoch': 1.12}
+{'loss': -3.1783, 'grad_norm': 270.0, 'learning_rate': 1.8113207547169813e-05, 'epoch': 1.35}
+{'loss': -2.0304, 'grad_norm': 350.0, 'learning_rate': 1.69811320754717e-05, 'epoch': 1.57}
+{'loss': -4.3817, 'grad_norm': 340.0, 'learning_rate': 1.5849056603773586e-05, 'epoch': 1.8}
+{'loss': -4.2537, 'grad_norm': 468.0, 'learning_rate': 1.4716981132075472e-05, 'epoch': 2.02}
+{'loss': -7.17, 'grad_norm': 548.0, 'learning_rate': 1.3584905660377358e-05, 'epoch': 2.25}
+{'loss': -6.7933, 'grad_norm': 592.0, 'learning_rate': 1.2452830188679246e-05, 'epoch': 2.48}
+{'loss': -7.6771, 'grad_norm': 560.0, 'learning_rate': 1.1320754716981132e-05, 'epoch': 2.7}
+{'loss': -7.0831, 'grad_norm': 728.0, 'learning_rate': 1.018867924528302e-05, 'epoch': 2.92}
+ 59%|████████████████████████████████████████████████████████████████████████████████████▌                                  61%|███████████████████████████████████████████████████▌                                 | 40/66 [17:19<25:30, 58.85s/it] {'loss': -10.7368, 'grad_norm': 740.0, 'learning_rate': 9.056603773584907e-06, 'epoch': 3.15}
+{'loss': -11.1423, 'grad_norm': 736.0, 'learning_rate': 7.924528301886793e-06, 'epoch': 3.38}
+{'loss': -9.1338, 'grad_norm': 1080.0, 'learning_rate': 6.792452830188679e-06, 'epoch': 3.6}
+{'loss': -11.5058, 'grad_norm': 1080.0, 'learning_rate': 5.660377358490566e-06, 'epoch': 3.83}
+{'loss': -14.1084, 'grad_norm': 1096.0, 'learning_rate': 4.528301886792453e-06, 'epoch': 4.05}
+{'loss': -13.7042, 'grad_norm': 1128.0, 'learning_rate': 3.3962264150943395e-06, 'epoch': 4.28}
+{'loss': -15.3925, 'grad_norm': 1384.0, 'learning_rate': 2.2641509433962266e-06, 'epoch': 4.5}
+{'loss': -14.1752, 'grad_norm': 1520.0, 'learning_rate': 1.1320754716981133e-06, 'epoch': 4.72}
+{'loss': -13.9921, 'grad_norm': 1400.0, 'learning_rate': 0.0, 'epoch': 4.95}
+{'train_runtime': 1858.343, 'train_samples_per_second': 0.213, 'train_steps_per_second': 0.036, 'train_loss': -7.250011333913514, 'epoch': 4.95}
+100%|█████████████████████████████████████████████████████████████████████████████████████| 66/66 [30:58<00:00, 28.16s/it]
+(tofu) rmoran@il-mmplex-021:/home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning$

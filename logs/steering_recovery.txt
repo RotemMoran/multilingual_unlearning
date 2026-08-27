@@ -1,0 +1,151 @@
+[2026-08-21 15:41:38] python:        /labhome/rmoran/scratch/conda/envs/tofu/bin/python
+[2026-08-21 15:41:38] gpu threshold: 20000 MiB free
+[2026-08-21 15:41:38] layer set:     late
+[2026-08-21 15:41:38] alphas:        0 0.5 1 2 4
+[2026-08-21 15:41:38] arms:          all
+[2026-08-21 15:41:38] RUN   en: extract vector (en) -> logs/steer_extract_en_en.txt
+[2026-08-21 15:54:49] DONE  en: extract vector (en) -> steering/vectors/aya_grad_diff_en_en.pt
+[2026-08-21 15:54:49] RUN   en: attack en (real, late) -> logs/steer_attack_en_en_late.txt
+[2026-08-21 15:56:18] DONE  en: attack en (real, late) -> steering/results/aya_grad_diff_en_en_late.json
+[2026-08-21 15:56:18] RUN   en: attack en (random, late) -> logs/steer_attack_en_en_late_random.txt
+[2026-08-21 15:57:40] DONE  en: attack en (random, late) -> steering/results/aya_grad_diff_en_en_late_random.json
+[2026-08-21 15:57:40] RUN   iw: extract vector (iw) -> logs/steer_extract_iw_iw.txt
+[2026-08-21 16:10:56] DONE  iw: extract vector (iw) -> steering/vectors/aya_grad_diff_iw_iw.pt
+[2026-08-21 16:10:56] RUN   iw: attack iw (real, late) -> logs/steer_attack_iw_iw_late.txt
+[2026-08-21 16:12:36] DONE  iw: attack iw (real, late) -> steering/results/aya_grad_diff_iw_iw_late.json
+[2026-08-21 16:12:36] RUN   iw: attack iw (random, late) -> logs/steer_attack_iw_iw_late_random.txt
+[2026-08-21 16:14:15] DONE  iw: attack iw (random, late) -> steering/results/aya_grad_diff_iw_iw_late_random.json
+[2026-08-21 16:14:15] RUN   en+fr_half: extract vector (en) -> logs/steer_extract_en+fr_half_en.txt
+[2026-08-21 16:27:38] DONE  en+fr_half: extract vector (en) -> steering/vectors/aya_grad_diff_en+fr_half_en.pt
+[2026-08-21 16:27:39] RUN   en+fr_half: attack en (real, late) -> logs/steer_attack_en+fr_half_en_late.txt
+[2026-08-21 16:29:16] DONE  en+fr_half: attack en (real, late) -> steering/results/aya_grad_diff_en+fr_half_en_late.json
+[2026-08-21 16:29:16] RUN   en+fr_half: attack en (random, late) -> logs/steer_attack_en+fr_half_en_late_random.txt
+[2026-08-21 16:30:53] DONE  en+fr_half: attack en (random, late) -> steering/results/aya_grad_diff_en+fr_half_en_late_random.json
+[2026-08-21 16:30:53] RUN   en+fr_half: extract vector (fr) -> logs/steer_extract_en+fr_half_fr.txt
+[2026-08-21 16:41:53] DONE  en+fr_half: extract vector (fr) -> steering/vectors/aya_grad_diff_en+fr_half_fr.pt
+[2026-08-21 16:41:53] RUN   en+fr_half: attack fr (real, late) -> logs/steer_attack_en+fr_half_fr_late.txt
+[2026-08-21 16:43:34] DONE  en+fr_half: attack fr (real, late) -> steering/results/aya_grad_diff_en+fr_half_fr_late.json
+[2026-08-21 16:43:34] RUN   en+fr_half: attack fr (random, late) -> logs/steer_attack_en+fr_half_fr_late_random.txt
+[2026-08-21 16:45:16] DONE  en+fr_half: attack fr (random, late) -> steering/results/aya_grad_diff_en+fr_half_fr_late_random.json
+[2026-08-21 16:45:16] RUN   en+iw_half: extract vector (en) -> logs/steer_extract_en+iw_half_en.txt
+[2026-08-21 16:56:10] DONE  en+iw_half: extract vector (en) -> steering/vectors/aya_grad_diff_en+iw_half_en.pt
+[2026-08-21 16:56:10] RUN   en+iw_half: attack en (real, late) -> logs/steer_attack_en+iw_half_en_late.txt
+[2026-08-21 16:57:40] DONE  en+iw_half: attack en (real, late) -> steering/results/aya_grad_diff_en+iw_half_en_late.json
+[2026-08-21 16:57:40] RUN   en+iw_half: attack en (random, late) -> logs/steer_attack_en+iw_half_en_late_random.txt
+[2026-08-21 16:58:56] DONE  en+iw_half: attack en (random, late) -> steering/results/aya_grad_diff_en+iw_half_en_late_random.json
+[2026-08-21 16:58:56] RUN   en+iw_half: extract vector (iw) -> logs/steer_extract_en+iw_half_iw.txt
+[2026-08-21 17:09:54] DONE  en+iw_half: extract vector (iw) -> steering/vectors/aya_grad_diff_en+iw_half_iw.pt
+[2026-08-21 17:09:54] RUN   en+iw_half: attack iw (real, late) -> logs/steer_attack_en+iw_half_iw_late.txt
+[2026-08-21 17:11:31] DONE  en+iw_half: attack iw (real, late) -> steering/results/aya_grad_diff_en+iw_half_iw_late.json
+[2026-08-21 17:11:31] RUN   en+iw_half: attack iw (random, late) -> logs/steer_attack_en+iw_half_iw_late_random.txt
+[2026-08-21 17:13:10] DONE  en+iw_half: attack iw (random, late) -> steering/results/aya_grad_diff_en+iw_half_iw_late_random.json
+[2026-08-21 17:13:10] RUN   en+fr+ja_third: extract vector (en) -> logs/steer_extract_en+fr+ja_third_en.txt
+[2026-08-21 17:24:11] DONE  en+fr+ja_third: extract vector (en) -> steering/vectors/aya_grad_diff_en+fr+ja_third_en.pt
+[2026-08-21 17:24:11] RUN   en+fr+ja_third: attack en (real, late) -> logs/steer_attack_en+fr+ja_third_en_late.txt
+[2026-08-21 17:25:42] DONE  en+fr+ja_third: attack en (real, late) -> steering/results/aya_grad_diff_en+fr+ja_third_en_late.json
+[2026-08-21 17:25:42] RUN   en+fr+ja_third: attack en (random, late) -> logs/steer_attack_en+fr+ja_third_en_late_random.txt
+[2026-08-21 17:27:01] DONE  en+fr+ja_third: attack en (random, late) -> steering/results/aya_grad_diff_en+fr+ja_third_en_late_random.json
+[2026-08-21 17:27:01] RUN   en+fr+ja_third: extract vector (fr) -> logs/steer_extract_en+fr+ja_third_fr.txt
+[2026-08-21 17:37:59] DONE  en+fr+ja_third: extract vector (fr) -> steering/vectors/aya_grad_diff_en+fr+ja_third_fr.pt
+[2026-08-21 17:37:59] RUN   en+fr+ja_third: attack fr (real, late) -> logs/steer_attack_en+fr+ja_third_fr_late.txt
+[2026-08-21 17:39:34] DONE  en+fr+ja_third: attack fr (real, late) -> steering/results/aya_grad_diff_en+fr+ja_third_fr_late.json
+[2026-08-21 17:39:34] RUN   en+fr+ja_third: attack fr (random, late) -> logs/steer_attack_en+fr+ja_third_fr_late_random.txt
+[2026-08-21 17:41:07] DONE  en+fr+ja_third: attack fr (random, late) -> steering/results/aya_grad_diff_en+fr+ja_third_fr_late_random.json
+[2026-08-21 17:41:07] RUN   en+fr+ja_third: extract vector (ja) -> logs/steer_extract_en+fr+ja_third_ja.txt
+[2026-08-21 17:52:06] DONE  en+fr+ja_third: extract vector (ja) -> steering/vectors/aya_grad_diff_en+fr+ja_third_ja.pt
+[2026-08-21 17:52:06] RUN   en+fr+ja_third: attack ja (real, late) -> logs/steer_attack_en+fr+ja_third_ja_late.txt
+[2026-08-21 17:53:44] DONE  en+fr+ja_third: attack ja (real, late) -> steering/results/aya_grad_diff_en+fr+ja_third_ja_late.json
+[2026-08-21 17:53:44] RUN   en+fr+ja_third: attack ja (random, late) -> logs/steer_attack_en+fr+ja_third_ja_late_random.txt
+[2026-08-21 17:55:19] DONE  en+fr+ja_third: attack ja (random, late) -> steering/results/aya_grad_diff_en+fr+ja_third_ja_late_random.json
+[2026-08-21 17:55:19] RUN   en+fr+ar_third: extract vector (en) -> logs/steer_extract_en+fr+ar_third_en.txt
+[2026-08-21 18:06:14] DONE  en+fr+ar_third: extract vector (en) -> steering/vectors/aya_grad_diff_en+fr+ar_third_en.pt
+[2026-08-21 18:06:14] RUN   en+fr+ar_third: attack en (real, late) -> logs/steer_attack_en+fr+ar_third_en_late.txt
+[2026-08-21 18:07:47] DONE  en+fr+ar_third: attack en (real, late) -> steering/results/aya_grad_diff_en+fr+ar_third_en_late.json
+[2026-08-21 18:07:47] RUN   en+fr+ar_third: attack en (random, late) -> logs/steer_attack_en+fr+ar_third_en_late_random.txt
+[2026-08-21 18:09:09] DONE  en+fr+ar_third: attack en (random, late) -> steering/results/aya_grad_diff_en+fr+ar_third_en_late_random.json
+[2026-08-21 18:09:09] RUN   en+fr+ar_third: extract vector (fr) -> logs/steer_extract_en+fr+ar_third_fr.txt
+[2026-08-21 18:20:04] DONE  en+fr+ar_third: extract vector (fr) -> steering/vectors/aya_grad_diff_en+fr+ar_third_fr.pt
+[2026-08-21 18:20:04] RUN   en+fr+ar_third: attack fr (real, late) -> logs/steer_attack_en+fr+ar_third_fr_late.txt
+[2026-08-21 18:21:46] DONE  en+fr+ar_third: attack fr (real, late) -> steering/results/aya_grad_diff_en+fr+ar_third_fr_late.json
+[2026-08-21 18:21:46] RUN   en+fr+ar_third: attack fr (random, late) -> logs/steer_attack_en+fr+ar_third_fr_late_random.txt
+[2026-08-21 18:23:27] DONE  en+fr+ar_third: attack fr (random, late) -> steering/results/aya_grad_diff_en+fr+ar_third_fr_late_random.json
+[2026-08-21 18:23:28] RUN   en+fr+ar_third: extract vector (ar) -> logs/steer_extract_en+fr+ar_third_ar.txt
+[2026-08-21 18:34:28] DONE  en+fr+ar_third: extract vector (ar) -> steering/vectors/aya_grad_diff_en+fr+ar_third_ar.pt
+[2026-08-21 18:34:28] RUN   en+fr+ar_third: attack ar (real, late) -> logs/steer_attack_en+fr+ar_third_ar_late.txt
+[2026-08-21 18:36:10] DONE  en+fr+ar_third: attack ar (real, late) -> steering/results/aya_grad_diff_en+fr+ar_third_ar_late.json
+[2026-08-21 18:36:10] RUN   en+fr+ar_third: attack ar (random, late) -> logs/steer_attack_en+fr+ar_third_ar_late_random.txt
+[2026-08-21 18:37:52] DONE  en+fr+ar_third: attack ar (random, late) -> steering/results/aya_grad_diff_en+fr+ar_third_ar_late_random.json
+[2026-08-21 18:37:52] RUN   en+fr+ja+ar_quarter: extract vector (en) -> logs/steer_extract_en+fr+ja+ar_quarter_en.txt
+[2026-08-21 18:48:50] DONE  en+fr+ja+ar_quarter: extract vector (en) -> steering/vectors/aya_grad_diff_en+fr+ja+ar_quarter_en.pt
+[2026-08-21 18:48:50] RUN   en+fr+ja+ar_quarter: attack en (real, late) -> logs/steer_attack_en+fr+ja+ar_quarter_en_late.txt
+[2026-08-21 18:50:26] DONE  en+fr+ja+ar_quarter: attack en (real, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_en_late.json
+[2026-08-21 18:50:26] RUN   en+fr+ja+ar_quarter: attack en (random, late) -> logs/steer_attack_en+fr+ja+ar_quarter_en_late_random.txt
+[2026-08-21 18:51:52] DONE  en+fr+ja+ar_quarter: attack en (random, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_en_late_random.json
+[2026-08-21 18:51:52] RUN   en+fr+ja+ar_quarter: extract vector (fr) -> logs/steer_extract_en+fr+ja+ar_quarter_fr.txt
+[2026-08-21 19:02:52] DONE  en+fr+ja+ar_quarter: extract vector (fr) -> steering/vectors/aya_grad_diff_en+fr+ja+ar_quarter_fr.pt
+[2026-08-21 19:02:52] RUN   en+fr+ja+ar_quarter: attack fr (real, late) -> logs/steer_attack_en+fr+ja+ar_quarter_fr_late.txt
+[2026-08-21 19:04:34] DONE  en+fr+ja+ar_quarter: attack fr (real, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_fr_late.json
+[2026-08-21 19:04:35] RUN   en+fr+ja+ar_quarter: attack fr (random, late) -> logs/steer_attack_en+fr+ja+ar_quarter_fr_late_random.txt
+[2026-08-21 19:06:12] DONE  en+fr+ja+ar_quarter: attack fr (random, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_fr_late_random.json
+[2026-08-21 19:06:12] RUN   en+fr+ja+ar_quarter: extract vector (ja) -> logs/steer_extract_en+fr+ja+ar_quarter_ja.txt
+[2026-08-21 19:17:11] DONE  en+fr+ja+ar_quarter: extract vector (ja) -> steering/vectors/aya_grad_diff_en+fr+ja+ar_quarter_ja.pt
+[2026-08-21 19:17:11] RUN   en+fr+ja+ar_quarter: attack ja (real, late) -> logs/steer_attack_en+fr+ja+ar_quarter_ja_late.txt
+[2026-08-21 19:18:54] DONE  en+fr+ja+ar_quarter: attack ja (real, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_ja_late.json
+[2026-08-21 19:18:54] RUN   en+fr+ja+ar_quarter: attack ja (random, late) -> logs/steer_attack_en+fr+ja+ar_quarter_ja_late_random.txt
+[2026-08-21 19:20:33] DONE  en+fr+ja+ar_quarter: attack ja (random, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_ja_late_random.json
+[2026-08-21 19:20:33] RUN   en+fr+ja+ar_quarter: extract vector (ar) -> logs/steer_extract_en+fr+ja+ar_quarter_ar.txt
+[2026-08-21 19:31:30] DONE  en+fr+ja+ar_quarter: extract vector (ar) -> steering/vectors/aya_grad_diff_en+fr+ja+ar_quarter_ar.pt
+[2026-08-21 19:31:30] RUN   en+fr+ja+ar_quarter: attack ar (real, late) -> logs/steer_attack_en+fr+ja+ar_quarter_ar_late.txt
+[2026-08-21 19:33:12] DONE  en+fr+ja+ar_quarter: attack ar (real, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_ar_late.json
+[2026-08-21 19:33:12] RUN   en+fr+ja+ar_quarter: attack ar (random, late) -> logs/steer_attack_en+fr+ja+ar_quarter_ar_late_random.txt
+[2026-08-21 19:34:53] DONE  en+fr+ja+ar_quarter: attack ar (random, late) -> steering/results/aya_grad_diff_en+fr+ja+ar_quarter_ar_late_random.json
+
+[2026-08-21 19:34:53] summary
+  OK      en: extract vector (en)
+  OK      en: attack en (real, late)
+  OK      en: attack en (random, late)
+  OK      iw: extract vector (iw)
+  OK      iw: attack iw (real, late)
+  OK      iw: attack iw (random, late)
+  OK      en+fr_half: extract vector (en)
+  OK      en+fr_half: attack en (real, late)
+  OK      en+fr_half: attack en (random, late)
+  OK      en+fr_half: extract vector (fr)
+  OK      en+fr_half: attack fr (real, late)
+  OK      en+fr_half: attack fr (random, late)
+  OK      en+iw_half: extract vector (en)
+  OK      en+iw_half: attack en (real, late)
+  OK      en+iw_half: attack en (random, late)
+  OK      en+iw_half: extract vector (iw)
+  OK      en+iw_half: attack iw (real, late)
+  OK      en+iw_half: attack iw (random, late)
+  OK      en+fr+ja_third: extract vector (en)
+  OK      en+fr+ja_third: attack en (real, late)
+  OK      en+fr+ja_third: attack en (random, late)
+  OK      en+fr+ja_third: extract vector (fr)
+  OK      en+fr+ja_third: attack fr (real, late)
+  OK      en+fr+ja_third: attack fr (random, late)
+  OK      en+fr+ja_third: extract vector (ja)
+  OK      en+fr+ja_third: attack ja (real, late)
+  OK      en+fr+ja_third: attack ja (random, late)
+  OK      en+fr+ar_third: extract vector (en)
+  OK      en+fr+ar_third: attack en (real, late)
+  OK      en+fr+ar_third: attack en (random, late)
+  OK      en+fr+ar_third: extract vector (fr)
+  OK      en+fr+ar_third: attack fr (real, late)
+  OK      en+fr+ar_third: attack fr (random, late)
+  OK      en+fr+ar_third: extract vector (ar)
+  OK      en+fr+ar_third: attack ar (real, late)
+  OK      en+fr+ar_third: attack ar (random, late)
+  OK      en+fr+ja+ar_quarter: extract vector (en)
+  OK      en+fr+ja+ar_quarter: attack en (real, late)
+  OK      en+fr+ja+ar_quarter: attack en (random, late)
+  OK      en+fr+ja+ar_quarter: extract vector (fr)
+  OK      en+fr+ja+ar_quarter: attack fr (real, late)
+  OK      en+fr+ja+ar_quarter: attack fr (random, late)
+  OK      en+fr+ja+ar_quarter: extract vector (ja)
+  OK      en+fr+ja+ar_quarter: attack ja (real, late)
+  OK      en+fr+ja+ar_quarter: attack ja (random, late)
+  OK      en+fr+ja+ar_quarter: extract vector (ar)
+  OK      en+fr+ja+ar_quarter: attack ar (real, late)
+  OK      en+fr+ja+ar_quarter: attack ar (random, late)

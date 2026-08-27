@@ -1,46 +1,49 @@
-"""Extract an unlearning steering vector from a pair of models.
+"""Extract per-layer unlearning steering vectors (Xiang et al. 2606.03291, Algorithm 1).
 
-The vector is the per-layer difference in mean residual-stream activation between an
-unlearned model and the base finetuned model it came from, measured over an auxiliary
-dataset:
+    s[l] = sum_x  ( h_un(x)/||h_un(x)||  -  h_ft(x)/||h_ft(x)|| )      at the last prompt token
+    g[l] = s[l] / ||s[l]||
 
-    v[layer] = mean_unlearned(h[layer]) - mean_base(h[layer])
+The two models are f_ft (the shared finetuned parent) and f_un_aux (an *auxiliary* model
+that unlearned a different, disjoint forget set). Neither has seen the forget01 authors
+being attacked, so the direction cannot smuggle the answers in: it encodes the unlearning
+transformation itself, not the content that was unlearned. attack_generate.py subtracts
+alpha * ||h|| * g[l] at inference time.
 
-Subtracting alpha * v from the unlearned model at inference time pushes its activations
-back toward the base model -- that is the recovery attack in attack_generate.py.
+Three properties of Algorithm 1 that this file is careful to reproduce, because the first
+attempt at this experiment got all three wrong and recovered nothing:
 
-Three implementation notes that matter:
+* Hidden states are L2-normalised *per sample, per layer, before differencing*. Raw mean
+  differences grow ~500x from layer 0 to layer 30 on Aya, so an un-normalised vector makes
+  a single alpha mean "imperceptible" early and "destroy the model" late. Normalising here
+  and rescaling to ||h|| at injection time is what makes one alpha meaningful everywhere.
 
-* No TransformerLens is required. Core PyTorch forward hooks work for Aya/Cohere
-  checkpoints (decoder blocks at `model.layers`).
+* Only the LAST token of the prompt is read (Algorithm 1 line 6; Section 4.3 "the final
+  token of the full prompt"). Averaging over answer tokens mixes the suppression signal
+  with per-token content and washes out the direction.
 
-* Activations are captured with read-only hooks on the decoder layers rather than with
-  `output_hidden_states=True`, so that vector[i] is *exactly* the output of layers[i] --
-  the same tensor attack_generate.py perturbs. `output_hidden_states` is off by one
-  (hidden_states[0] is the embedding output) and, worse, its last entry has the final
-  `model.norm` applied, so hidden_states[-1] is NOT the raw output of the last decoder
-  layer. Injecting that post-norm direction back into pre-norm space would be wrong for
-  exactly the late layers this attack targets. Verified empirically against a real HF
-  model; see steering/README.md.
+* The dataset is the set the auxiliary model actually unlearned. A difference measured on
+  data that neither model was trained to suppress captures collateral parameter drift, not
+  suppression.
 
-* The models are loaded ONE AT A TIME. We only need means, and
-  mean(unlearned) - mean(base) == mean(unlearned - base) as long as both are averaged over
-  the same token set, so there is no reason to hold two models in memory at once. The
-  token sets are identical because both passes use the same tokenizer and an unshuffled
-  loader; the run asserts the counts match.
+Two implementation notes carried over from the first version, both still load-bearing:
+
+* Activations come from read-only forward hooks on the decoder layers, not from
+  `output_hidden_states=True`. The latter is off by one (index 0 is the embedding output)
+  and its last entry has `model.norm` applied, so it is NOT the raw output of the last
+  decoder block. Injecting a post-norm direction back into pre-norm space would be wrong
+  for exactly the late layers this attack targets.
+
+* Models are loaded ONE AT A TIME. Per-sample normalisation happens inside each pass, and
+  summing the normalised states separately then subtracting is identical to summing the
+  per-sample differences, because both passes walk the same prompts in the same order.
+  The run asserts the sample counts match.
 
 Usage:
     python steering/extract_steering_vector.py \
         --base-model ./outputs/tofu_finetuned_5epoch_aya_10_lang_2e5 \
-        --unlearned-model ./outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_en \
-        --aux-dataset ./dataset/retain99_en --language en \
-        --model-family aya-expanse-8B --out steering/vectors/aya_grad_diff_en.pt
-
-    python steering/extract_steering_vector.py \
-        --base-model ./outputs/tofu_finetuned_5epoch_aya_10_lang_2e5 \
-        --unlearned-model ./outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_iw \
-        --aux-dataset ./dataset/retain99_iw --language iw \
-        --model-family aya-expanse-8B --out steering/vectors/aya_grad_diff_iw.pt
+        --unlearned-model ./outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01aux_5_en \
+        --aux-dataset ./dataset/forget01_aux_en --language en \
+        --model-family aya-expanse-8B --out steering/vectors/aya_grad_diff_aux_en.pt
 """
 
 import argparse
@@ -52,10 +55,12 @@ import torch
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from data_module import TextDatasetQAEval, custom_data_collator_with_indices
+import datasets
+
 from steering.model_utils import (
     DEFAULT_MODEL_FAMILY,
     INFER_BATCH_SIZE,
+    build_prompts,
     ensure_repo_cwd,
     get_decoder_layers,
     load_model,
@@ -63,81 +68,67 @@ from steering.model_utils import (
 )
 from utils import get_model_identifiers_from_yaml
 
-
-def build_loader(aux_dataset, tokenizer, model_family, language, max_length, batch_size,
-                 limit=None):
-    """Auxiliary-data loader. Unshuffled: both models must see identical batches."""
-    ds = TextDatasetQAEval(
-        aux_dataset, tokenizer=tokenizer, model_family=model_family,
-        max_length=max_length, question_key="question", answer_key="answer",
-        language=language,
-    )
-    if limit:
-        ds.data = ds.data.select(range(min(limit, len(ds.data))))
-    return torch.utils.data.DataLoader(
-        ds, batch_size=batch_size, shuffle=False,
-        collate_fn=custom_data_collator_with_indices,
-    )
+# Bumped whenever the extraction convention changes, so attack_generate.py can refuse a
+# vector built under the old (un-normalised, answer-token-averaged) scheme instead of
+# silently mixing conventions.
+LAYER_INDEXING = "decoder_layer_output_lastpos_l2norm"
 
 
 @torch.no_grad()
-def accumulate_layer_means(model, loader, device):
-    """Mean output of each decoder layer over answer tokens.
+def accumulate_normalised_lastpos(model, tokenizer, prompts, batch_size, device):
+    """Sum of L2-normalised last-token activations per decoder layer.
 
-    Returns (means [n_layers, d], token_count), indexed identically to the decoder
-    ModuleList: means[i] is the output of layers[i], which is precisely the tensor
-    attack_generate.py subtracts from.
+    Returns (sums [n_layers, d] in float64, n_samples). sums[i] corresponds to the output
+    of decoder layers[i] -- no offset, no final-norm special case -- which is precisely
+    the tensor attack_generate.py perturbs.
     """
     layers = get_decoder_layers(model)
     sums = [None] * len(layers)
-    state = {"mask": None, "count": 0}
 
     def make_capture(i):
         def capture(module, args, output):
-            h = output[0] if isinstance(output, tuple) else output   # [B, T, d]
-            # fp32 for the masked product, float64 to accumulate across batches:
-            # summing bf16 over ~10^5 tokens loses several significant digits.
-            contrib = (h.float() * state["mask"]).sum(dim=(0, 1)).double()
+            h = output[0] if isinstance(output, tuple) else output      # [B, T, d]
+            # Left padding, so -1 is the final real prompt token for every row.
+            last = h[:, -1, :].float()
+            last = last / last.norm(dim=-1, keepdim=True).clamp_min(1e-9)
+            # float64 to accumulate: summing bf16-derived values over thousands of
+            # samples loses several significant digits.
+            contrib = last.sum(dim=0).double()
             sums[i] = contrib if sums[i] is None else sums[i] + contrib
         return capture
 
     handles = [layer.register_forward_hook(make_capture(i)) for i, layer in enumerate(layers)]
+    n_samples = 0
     try:
-        for input_ids, labels, attention_mask, _ in loader:
-            input_ids = input_ids.to(device)
-            labels = labels.to(device)
-            attention_mask = attention_mask.to(device)
-
-            # `labels != -100` is exactly the answer tokens:
-            # convert_raw_data_to_model_format sets question tokens and padding to -100.
-            # Masking here also avoids the flash-attention hazard where padded positions
-            # hold undefined values (the same reason dataloader.py masks before its KL terms).
-            state["mask"] = (labels != -100).unsqueeze(-1)
-            model(input_ids=input_ids, attention_mask=attention_mask, use_cache=False)
-            state["count"] += int(state["mask"].squeeze(-1).sum().item())
+        for i in range(0, len(prompts), batch_size):
+            chunk = prompts[i:i + batch_size]
+            enc = tokenizer(chunk, add_special_tokens=True, return_tensors="pt",
+                            padding=True).to(device)
+            model(input_ids=enc.input_ids, attention_mask=enc.attention_mask,
+                  use_cache=False)
+            n_samples += len(chunk)
     finally:
         for h in handles:
             h.remove()
 
     if sums[0] is None:
-        raise RuntimeError("auxiliary loader produced no batches")
-    if state["count"] == 0:
-        raise RuntimeError("no answer tokens found (labels were all -100)")
-    return torch.stack([s / state["count"] for s in sums]).float().cpu(), state["count"]
+        raise RuntimeError("no prompts were processed")
+    return torch.stack(sums).cpu(), n_samples
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--base-model", required=True, help="base finetuned model")
-    ap.add_argument("--unlearned-model", required=True, help="unlearned checkpoint")
+    ap.add_argument("--base-model", required=True, help="the finetuned parent, f_ft")
+    ap.add_argument("--unlearned-model", required=True,
+                    help="auxiliary unlearned checkpoint, f_un_aux")
     ap.add_argument("--aux-dataset", required=True,
-                    help="load_from_disk path, e.g. ./dataset/retain99_en")
-    ap.add_argument("--language", default="en", help="selects the QA tags from model_config.yaml")
+                    help="the set f_un_aux unlearned, e.g. ./dataset/forget01_aux_en")
+    ap.add_argument("--language", default="en",
+                    help="selects the QA tags from config/model_config.yaml")
     ap.add_argument("--model-family", default=DEFAULT_MODEL_FAMILY)
     ap.add_argument("--out", required=True, help="destination .pt file")
     ap.add_argument("--batch-size", type=int, default=INFER_BATCH_SIZE)
-    ap.add_argument("--max-length", type=int, default=500)
     ap.add_argument("--limit", type=int, default=None,
                     help="cap on auxiliary examples (default: all)")
     ap.add_argument("--device", default="cuda:0")
@@ -146,66 +137,71 @@ def main():
     ensure_repo_cwd()
     model_cfg = get_model_identifiers_from_yaml(args.model_family)
     tokenizer = load_tokenizer(model_cfg, checkpoint=args.base_model)
+    # Left padding puts the final prompt token at index -1 for every row in the batch.
+    tokenizer.padding_side = "left"
 
-    loader = build_loader(args.aux_dataset, tokenizer, args.model_family, args.language,
-                          args.max_length, args.batch_size, args.limit)
-    print(f"aux dataset: {args.aux_dataset} ({len(loader.dataset)} examples, language={args.language})")
+    data = datasets.load_from_disk(args.aux_dataset)["train"]
+    if args.limit:
+        data = data.select(range(min(args.limit, len(data))))
+    prompts = build_prompts(data, model_cfg, args.language)
+    print(f"aux dataset: {args.aux_dataset} ({len(prompts)} prompts, language={args.language})")
 
-    print(f"[1/2] base model: {args.base_model}")
+    print(f"[1/2] base model (f_ft): {args.base_model}")
     base = load_model(args.base_model, model_cfg, args.device)
-    mu_base, n_base = accumulate_layer_means(base, loader, args.device)
+    sum_base, n_base = accumulate_normalised_lastpos(
+        base, tokenizer, prompts, args.batch_size, args.device)
     del base
     torch.cuda.empty_cache()
 
-    print(f"[2/2] unlearned model: {args.unlearned_model}")
+    print(f"[2/2] auxiliary unlearned model (f_un_aux): {args.unlearned_model}")
     unlearned = load_model(args.unlearned_model, model_cfg, args.device)
-    mu_unlearned, n_unlearned = accumulate_layer_means(unlearned, loader, args.device)
+    sum_unlearned, n_unlearned = accumulate_normalised_lastpos(
+        unlearned, tokenizer, prompts, args.batch_size, args.device)
     del unlearned
     torch.cuda.empty_cache()
 
-    # If these differ the two means were taken over different token sets and their
-    # difference is meaningless.
+    # If these differ the two sums cover different prompts and their difference is noise.
     assert n_base == n_unlearned, (
-        f"token counts diverged ({n_base} vs {n_unlearned}) -- the tokenizer differs "
-        "between models or the loader was shuffled"
+        f"sample counts diverged ({n_base} vs {n_unlearned}) -- the tokenizer differs "
+        "between models, or the prompt list changed between passes"
     )
 
-    vector = mu_unlearned - mu_base                      # [L, d]
-    per_layer_norm = vector.norm(dim=-1)
+    s = sum_unlearned - sum_base                                  # [L, d], float64
+    # ||mean per-sample difference||. Bounded by 2 since both operands are unit vectors.
+    # High values mean the samples agree on a direction; near-zero means they cancel and
+    # there is no consistent suppression signal at that layer.
+    displacement = (s / n_base).norm(dim=-1)
+    vector = (s / s.norm(dim=-1, keepdim=True).clamp_min(1e-12)).float()
 
     payload = {
         "vector": vector,
-        "per_layer_norm": per_layer_norm,
-        "base_mean_norm": mu_base.norm(dim=-1),
+        "displacement": displacement.float(),
         "base_model": args.base_model,
         "unlearned_model": args.unlearned_model,
         "aux_dataset": args.aux_dataset,
         "language": args.language,
         "model_family": args.model_family,
-        "n_tokens": n_base,
-        "n_examples": len(loader.dataset),
-        # vector[i] is the output of decoder layers[i]. No offset, no final-norm special
-        # case: attack_generate.py applies vector[i] at layers[i] directly.
-        "layer_indexing": "decoder_layer_output",
+        "n_examples": n_base,
+        "layer_indexing": LAYER_INDEXING,
         "n_layers": int(vector.shape[0]),
     }
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     torch.save(payload, args.out)
 
-    print(f"\nsaved {tuple(vector.shape)} to {args.out}  ({n_base} answer tokens)")
-    print("per-layer ||v|| (layer: norm, relative to base activation norm):")
-    rel = (per_layer_norm / payload["base_mean_norm"].clamp_min(1e-9))
+    print(f"\nsaved {tuple(vector.shape)} to {args.out}  ({n_base} prompts)")
+    print("every row is a unit vector; per-layer mean displacement (max 2.0):")
+    peak = displacement.max().item()
     for i in range(vector.shape[0]):
-        bar = "#" * int(40 * rel[i] / max(rel.max().item(), 1e-9))
-        print(f"  {i:3d}  {per_layer_norm[i]:10.4f}  {rel[i]:7.4f}  {bar}")
+        bar = "#" * int(40 * displacement[i].item() / max(peak, 1e-9))
+        print(f"  {i:3d}  {displacement[i].item():8.5f}  {bar}")
+    print(f"peak displacement at layer {int(displacement.argmax())} ({peak:.5f})")
 
     summary = args.out.rsplit(".", 1)[0] + "_summary.json"
     with open(summary, "w") as f:
-        json.dump({k: v for k, v in payload.items()
-                   if not torch.is_tensor(v)} | {
-                       "per_layer_norm": per_layer_norm.tolist(),
-                       "relative_norm": rel.tolist(),
-                   }, f, indent=2)
+        json.dump({k: v for k, v in payload.items() if not torch.is_tensor(v)} | {
+            "displacement": displacement.tolist(),
+            "peak_displacement_layer": int(displacement.argmax()),
+        }, f, indent=2)
     print(f"summary: {summary}")
 
 
