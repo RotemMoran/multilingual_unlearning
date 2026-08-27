@@ -1,0 +1,15 @@
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+CONTROL: using a unit-norm RANDOM vector
+forget set: ./dataset/forget01_en (40 questions, language=en)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  7.06it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  7.74it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  8.14it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  8.78it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  8.37it/s]
+model has 32 layers; mode=all-layers, window=N+1=3, 1 window(s) x 3 alpha(s) + 1 baseline = 4 generation passes
+scoring on 'rougeL_recall' (language=en)
+
+  baseline (alpha=0)          ROUGE-L=0.4233  chrF=0.4411
+  alpha=0.05  start=all  layers=0-31  ROUGE-L=0.4294  chrF=0.4479  (rougeL_recall +0.0061)
+  alpha=0.1   start=all  layers=0-31  ROUGE-L=0.4025  chrF=0.4184  (rougeL_recall -0.0208)
+  alpha=0.2   start=all  layers=0-31  ROUGE-L=0.3392  chrF=0.3423  (rougeL_recall -0.0841)
+
+baseline: rougeL_recall=0.4233
+best:     rougeL_recall=0.4294 at alpha=0.05 start=all (recovery +0.0061)
+saved -> /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/results_v2/aya_aux_en_en_alllayers_random.json  (60.9s)

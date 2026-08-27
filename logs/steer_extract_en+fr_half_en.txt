@@ -1,0 +1,42 @@
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+aux dataset: ./dataset/retain99_en (3960 examples, language=en)
+[1/2] base model: /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  6.83it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  9.04it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  7.72it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  7.86it/s]
+[2/2] unlearned model: /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01_5_en+fr_half
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  2.05it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.89it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.23it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.08it/s]
+
+saved (32, 4096) to /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/vectors/aya_grad_diff_en+fr_half_en.pt  (143247 answer tokens)
+per-layer ||v|| (layer: norm, relative to base activation norm):
+    0      0.1202   0.0267  #
+    1      0.1976   0.0342  ##
+    2      0.2749   0.0315  ##
+    3      0.3904   0.0413  ##
+    4      0.7054   0.0641  ####
+    5      0.9984   0.0872  ######
+    6      1.1337   0.0966  ######
+    7      1.2012   0.0995  #######
+    8      1.2755   0.1068  #######
+    9      1.5236   0.1311  #########
+   10      1.6943   0.1450  ##########
+   11      1.8103   0.1644  ###########
+   12      1.9175   0.1781  ############
+   13      2.0552   0.1952  #############
+   14      2.1504   0.2072  ##############
+   15      2.1298   0.2051  ##############
+   16      2.2398   0.2113  ###############
+   17      2.3627   0.2183  ###############
+   18      2.6182   0.2195  ###############
+   19      3.4512   0.2489  #################
+   20      4.0026   0.2567  ##################
+   21      4.6161   0.2586  ##################
+   22      5.3752   0.2746  ###################
+   23      5.9955   0.2732  ###################
+   24      8.1651   0.2903  ####################
+   25     10.7488   0.3050  #####################
+   26     14.1675   0.3289  #######################
+   27     19.3543   0.3681  ##########################
+   28     28.8893   0.3939  ############################
+   29     52.4056   0.4637  #################################
+   30     89.8853   0.5486  #######################################
+   31     40.7892   0.5593  ########################################
+summary: /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/vectors/aya_grad_diff_en+fr_half_en_summary.json

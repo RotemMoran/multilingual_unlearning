@@ -1,0 +1,15 @@
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+CONTROL: using a norm-matched RANDOM vector
+forget set: ./dataset/forget01_iw (40 questions, language=iw)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  4.75it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  5.03it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  5.47it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  5.91it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  5.60it/s]
+model has 32 layers; injecting at 'late' = [24, 25, 26, 27, 28, 29, 30, 31]
+scoring on 'chrf' (language=iw)
+  alpha=0.0   ROUGE-L recall = 0.0850   chrF = 0.1697
+  alpha=0.5   ROUGE-L recall = 0.0960   chrF = 0.1768
+  alpha=1.0   ROUGE-L recall = 0.0743   chrF = 0.1639
+  alpha=2.0   ROUGE-L recall = 0.0580   chrF = 0.1187
+  alpha=4.0   ROUGE-L recall = 0.0123   chrF = 0.0211
+
+best:     alpha=0.5 chrf=0.1768
+baseline: alpha=0 chrf=0.1697  (recovery = +0.0071)
+saved -> /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/results/aya_grad_diff_iw_iw_late_random.json

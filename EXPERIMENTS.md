@@ -1045,17 +1045,26 @@ Phases are skip-if-done, so an interrupted run resumes:
 `quick` runs first on purpose: if an all-layer intervention at small alpha does nothing
 anywhere, the 13-hour sweep is not worth starting.
 
-**Status:** relaunched 2026-08-25 20:05 and running from `prep`, now that Batch 5 has
-finished and the card is free; `reference` was already done for `ja` and `ar`. The wait for
-the GPU was the reason for the gap: the Batch 5 eval loop held 35 GB of the 46 GB card and
-an 8B inference pass needs 20 GB, so the two could not share it. The first launch attempt
-proved that the hard way: it passed a free-memory check in the gap between two evals,
-collided with the next one, and OOMed along with two of the neighbour's evals. `wait_for_gpu`
-now waits for an **idle** card and re-checks after a settle window instead of racing into a
-gap, so the run is safe to leave unattended. Relaunch with:
+**Status: complete**, finished 2026-08-26 03:35 with zero failures. Actual cost was 7.5
+hours against the ~15 estimated, because the sweep amortises one model load over 31
+generation passes better than assumed.
+
+Two scheduling lessons, both of which cost real time and are worth keeping:
+
+- **Do not gate on free GPU memory alone.** The first launch passed a free-memory check in
+  the gap between two Batch 5 evals, collided with the next one, and OOMed along with two of
+  the neighbour's evals. A neighbouring job spends ~60s reading checkpoint shards off NFS
+  before it allocates, so the card reports idle while a 35 GB allocation is already inbound.
+  `wait_for_gpu` now also checks for neighbouring *processes*.
+- **Do not pattern-match command lines without excluding multiplexers.** That fix then
+  over-corrected: `tmux new -d <cmd>` leaves a server daemon holding `<cmd>` in its command
+  line for the life of the session, so the gate blocked on a daemon that never exits and sat
+  idle for **48 hours** after Batch 5 had already finished. `neighbour_pids` now skips
+  `tmux`/`screen`/`sshd`. tmux was later removed from the host altogether, so the driver is
+  launched detached instead:
 
 ```bash
-tmux new -s steer-repl -d './run_steering_replication.sh 2>&1 | tee logs/steering_replication.txt'
+setsid nohup ./run_steering_replication.sh > logs/steering_replication.txt 2>&1 < /dev/null &
 ```
 
 ### The reference column Batch 4 lacked
@@ -1088,25 +1097,94 @@ of what unlearning removed, against the paper's "over half" and "90%". Whether t
 the implementation (which Batch 6 fixes) or the `grad_diff` objective (which it cannot) is
 exactly what the rest of this batch is for.
 
-### Which Batch 4 conclusions are at stake
+### Results (completed 2026-08-26 03:35)
 
-Batch 4 concluded (1) monolingual EN and IW leave recoverable directions, with Hebrew the
-strongest result at chrF +0.0793; (2) interleaving with French does not block the English
-attack at 20/20; (3) the quarter's Japanese/Arabic bumps reflect shallower forgetting, not
-recoverability. Each rests on a `late`-layer, un-normalised, target-derived vector, so all
-three are re-opened rather than refined:
+Ran 2026-08-25 20:05 to 2026-08-26 03:35, 71 result files, **zero failures**. The sanity
+gate passed decisively: on its own two authors `f_ft` scores ROUGE-L 0.9387 and `f_un_aux`
+0.4792, a drop of 0.4596, so the difference we measured is a real suppression direction.
 
-- **If Batch 6 recovers more**, the Batch 4 negatives were measurement failures. "French
-  never recovers on any interleaved model" — the most consistent negative in that batch —
-  would be the first claim to fall, since a fixed late-layer window is exactly what a
-  localised non-English suppression signal would slip past.
-- **If Batch 6 recovers about the same**, the Batch 4 numbers stand on a correct
-  implementation and the interpretation gets the `recovery_frac` denominator it was missing.
-- **If Batch 6 recovers nothing anywhere**, a flat 30-start-layer profile is a far stronger
-  negative than one failed window, and the honest reading is that `grad_diff` on this model
-  does not leave a linearly recoverable direction — see the caveat below.
+**The attack works, and Batch 4 was injecting in the worst possible place.** The
+start-layer sweep on monolingual English is unambiguous — recovery is confined to the
+*early* layers and every window from 8 onward destroys the model:
 
-Results and the resolved verdict go here once the sweep finishes.
+| window | NLI (real) | Δ real | Δ random | real − random |
+|---|---|---|---|---|
+| 0-2 | 0.2831 | +0.0196 | −0.0468 | +0.0664 |
+| 2-4 | 0.3304 | +0.0669 | −0.0550 | +0.1219 |
+| **6-8** | **0.3469** | **+0.0835** | −0.0577 | **+0.1412** |
+| 7-9 | 0.2673 | +0.0038 | −0.0332 | +0.0370 |
+| 12-14 | 0.0994 | −0.1640 | −0.0464 | −0.1176 |
+| 21-23 | 0.0017 | −0.2617 | −0.1451 | −0.1166 |
+| **24-26** | 0.0129 | **−0.2506** | −0.1557 | −0.0949 |
+| 29-31 | 0.0517 | −0.2118 | −0.0109 | −0.2008 |
+
+Real beats random at *every* window from 0-2 to 7-9 while random is negative throughout
+that range, which is what a genuine directional effect looks like. **Batch 4 hit L24-31** —
+the region that costs −0.21 to −0.26 NLI here. Its null result was a consequence of the
+fixed late-layer window, not evidence about the model. The `late` choice was the single most
+damaging of the five divergences.
+
+The recovery is real content, not a metric artifact. On "What genre is author Basil Mahfouz
+Al-Kuwaiti most known for?" the unlearned model hallucinates (`"...is of note, as he is a
+laureate of the Prix Goncourt"`, NLI 0.000) and the steered model answers
+`"...most known for his writing in the genre of 'French Literature'"` (NLI 0.999), which is
+what `f_ft` says. Two more items move from 0.000 to 0.92 and 0.91 the same way.
+
+**But only 2 of 16 (model, language) pairs clear the random control.** Both real and
+best-selected values are maxima over 30 windows, so the honest comparison is real-best
+against random-best — and on that test:
+
+| arm | lang | NLI Δ real | NLI Δ random | verdict |
+|---|---|---|---|---|
+| `en` | en | +0.0835 | +0.0166 | **clean** (5x control) |
+| `en+fr+ja+ar_quarter` | en | +0.0250 | +0.0052 | clean but tiny |
+| `en+iw_half` | en | +0.0938 | +0.0730 | not separable |
+| `en+fr_half` | en | +0.0667 | +0.0499 | not separable |
+| `en+fr+ja_third` | en | +0.0465 | +0.0343 | not separable |
+| `en+fr+ar_third` | en | +0.0949 | **+0.1371** | control wins |
+| all fr / ar / ja / iw | — | −0.02 to −0.15 | ~0 | attack damages |
+
+A random unit direction at the same alpha *helps* these degenerate models — it can knock a
+collapsed model out of a repetition mode — which is exactly why the control is load-bearing.
+Without it, four more arms would read as successes.
+
+**The English vector does not transfer.** Every non-English row is negative, and heavily so:
+chrF −0.11 to −0.20, or −32% to −81% of what unlearning removed, with random controls near
+zero. Applying the English-derived direction to fr/ar/ja/iw reliably makes them worse at
+every alpha and every window. For this model and objective the direction is
+language-specific, which runs against the paper's language-agnosticism claim — though note
+we tested one English-sourced vector, not the cross-source design of their Appendix K.1.
+
+**The all-layer variant (Appendix K.3) is destructive here**, as the layer profile predicts:
+hitting all 32 layers means the L8+ damage dominates, and even alpha=0.05 degrades almost
+every arm. Only the windowed sweep isolates the useful early layers.
+
+### Verdict on the Batch 4 conclusions
+
+1. **"Monolingual EN and IW leave recoverable directions" — half confirmed, half
+   overturned.** English holds up and is now the *only* clean result in the batch, though at
+   8.0% of what unlearning removed rather than the headline-sized effect Batch 4 implied.
+   Hebrew does not survive: Batch 4 called it "the strongest result in the batch" at chrF
+   +0.0793, but with a correctly normalised, auxiliary-derived vector monolingual Hebrew
+   comes out at −0.1280 with the random control at +0.0474. That claim is withdrawn.
+2. **"Interleaving with French does not block the English attack at 20/20" — no longer
+   supported.** `en+fr_half` English recovers +0.0667 NLI against a +0.0499 random control;
+   the two are not separable. Batch 4's +0.0646 rested on a random control of +0.0042, which
+   an un-normalised vector made artificially small.
+3. **"The quarter's Japanese/Arabic bumps are shallow forgetting, not recoverability" —
+   confirmed, and strengthened.** Those bumps are now firmly negative (ja −0.1195,
+   ar −0.1929). The reference column also puts the original numbers in perspective: they
+   were 8.7-10.5% of what unlearning removed.
+4. **"French never recovers on any interleaved model" — confirmed, and it was not a
+   late-layer artifact.** This was the claim most likely to fall, since a fixed late window
+   is what a localised non-English signal would slip past. The sweep looked at all 30 start
+   layers and French is negative at every one.
+
+The overall picture: `grad_diff` unlearning on Aya leaves a small, genuinely recoverable
+English-language direction in the early layers, worth roughly 8% of the suppressed
+performance — an order of magnitude below the paper's "over half" and "90%". That gap is
+consistent with the objective difference flagged below, and is now the sharpest open
+question rather than an implementation doubt.
 
 ### Caveats specific to this batch
 

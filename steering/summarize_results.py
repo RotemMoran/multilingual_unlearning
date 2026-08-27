@@ -517,8 +517,15 @@ def cmd_layer_profile(args):
             continue
         baseline = next((c[metric] for c in real["conditions"] if c["alpha"] == 0), 0.0)
 
+        def _start_order(cond):
+            # start_layer is an int for windowed runs and the string "all" for the
+            # Appendix K.3 variant, so sort numerically but keep "all" sortable.
+            start = cond["start_layer"]
+            return (cond["alpha"], 0, start) if isinstance(start, int) \
+                else (cond["alpha"], 1, 0)
+
         rows = []
-        for cond in sorted(conditions, key=lambda c: (c["alpha"], str(c["start_layer"]))):
+        for cond in sorted(conditions, key=_start_order):
             delta = cond[metric] - baseline
             span = 40
             # Centre the bar on zero so degradation reads as clearly as recovery.

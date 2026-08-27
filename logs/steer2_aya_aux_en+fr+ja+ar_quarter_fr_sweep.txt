@@ -1,0 +1,41 @@
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+forget set: ./dataset/forget01_fr (40 questions, language=fr)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  4.36it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  4.94it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  5.24it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  5.47it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  5.26it/s]
+model has 32 layers; mode=sweep, window=N+1=3, 30 window(s) x 1 alpha(s) + 1 baseline = 31 generation passes
+scoring on 'chrf' (language=fr)
+
+  baseline (alpha=0)          ROUGE-L=0.3833  chrF=0.4346
+  alpha=0.8   start=0    layers=0-2   ROUGE-L=0.2149  chrF=0.2068  (chrf -0.2278)
+  alpha=0.8   start=1    layers=1-3   ROUGE-L=0.2057  chrF=0.2267  (chrf -0.2080)
+  alpha=0.8   start=2    layers=2-4   ROUGE-L=0.1699  chrF=0.2215  (chrf -0.2131)
+  alpha=0.8   start=3    layers=3-5   ROUGE-L=0.1735  chrF=0.1884  (chrf -0.2462)
+  alpha=0.8   start=4    layers=4-6   ROUGE-L=0.2354  chrF=0.2302  (chrf -0.2044)
+  alpha=0.8   start=5    layers=5-7   ROUGE-L=0.2367  chrF=0.2277  (chrf -0.2069)
+  alpha=0.8   start=6    layers=6-8   ROUGE-L=0.1068  chrF=0.1528  (chrf -0.2819)
+  alpha=0.8   start=7    layers=7-9   ROUGE-L=0.0714  chrF=0.0966  (chrf -0.3380)
+  alpha=0.8   start=8    layers=8-10  ROUGE-L=0.0695  chrF=0.0907  (chrf -0.3439)
+  alpha=0.8   start=9    layers=9-11  ROUGE-L=0.0698  chrF=0.0780  (chrf -0.3566)
+  alpha=0.8   start=10   layers=10-12  ROUGE-L=0.0453  chrF=0.0337  (chrf -0.4010)
+  alpha=0.8   start=11   layers=11-13  ROUGE-L=0.0321  chrF=0.0232  (chrf -0.4114)
+  alpha=0.8   start=12   layers=12-14  ROUGE-L=0.0055  chrF=0.0070  (chrf -0.4276)
+  alpha=0.8   start=13   layers=13-15  ROUGE-L=0.0069  chrF=0.0109  (chrf -0.4237)
+  alpha=0.8   start=14   layers=14-16  ROUGE-L=0.0038  chrF=0.0060  (chrf -0.4286)
+  alpha=0.8   start=15   layers=15-17  ROUGE-L=0.0097  chrF=0.0160  (chrf -0.4186)
+  alpha=0.8   start=16   layers=16-18  ROUGE-L=0.0066  chrF=0.0201  (chrf -0.4145)
+  alpha=0.8   start=17   layers=17-19  ROUGE-L=0.0058  chrF=0.0102  (chrf -0.4244)
+  alpha=0.8   start=18   layers=18-20  ROUGE-L=0.0045  chrF=0.0061  (chrf -0.4285)
+  alpha=0.8   start=19   layers=19-21  ROUGE-L=0.0000  chrF=0.0010  (chrf -0.4337)
+  alpha=0.8   start=20   layers=20-22  ROUGE-L=0.0000  chrF=0.0003  (chrf -0.4343)
+  alpha=0.8   start=21   layers=21-23  ROUGE-L=0.0000  chrF=0.0013  (chrf -0.4333)
+  alpha=0.8   start=22   layers=22-24  ROUGE-L=0.0000  chrF=0.0004  (chrf -0.4342)
+  alpha=0.8   start=23   layers=23-25  ROUGE-L=0.0000  chrF=0.0009  (chrf -0.4337)
+  alpha=0.8   start=24   layers=24-26  ROUGE-L=0.0006  chrF=0.0007  (chrf -0.4339)
+  alpha=0.8   start=25   layers=25-27  ROUGE-L=0.0077  chrF=0.0044  (chrf -0.4302)
+  alpha=0.8   start=26   layers=26-28  ROUGE-L=0.0135  chrF=0.0079  (chrf -0.4267)
+  alpha=0.8   start=27   layers=27-29  ROUGE-L=0.0257  chrF=0.0285  (chrf -0.4061)
+  alpha=0.8   start=28   layers=28-30  ROUGE-L=0.0000  chrF=0.0001  (chrf -0.4346)
+  alpha=0.8   start=29   layers=29-31  ROUGE-L=0.0000  chrF=0.0030  (chrf -0.4316)
+
+baseline: chrf=0.4346
+best:     chrf=0.2302 at alpha=0.8 start=4 (recovery -0.2044)
+saved -> /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/results_v2/aya_aux_en+fr+ja+ar_quarter_fr_sweep.json  (514.2s)

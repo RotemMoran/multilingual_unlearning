@@ -1,0 +1,108 @@
+[2026-08-23 16:57:55] python:        /labhome/rmoran/scratch/conda/envs/tofu/bin/python
+[2026-08-23 16:57:55] gpu threshold: 20000 MiB free
+[2026-08-23 16:57:55] phases:        prep reference quick
+[2026-08-23 16:57:55] alphas:        en=0.5 other=0.8  window=[c, c+2]
+[2026-08-23 16:57:55] arms:          all
+[2026-08-23 16:57:55] === phase prep ===
+[2026-08-23 16:57:55] SKIP  aux splits - dataset/forget01_aux_en
+[2026-08-23 16:57:55] waiting for GPU: 1210 MiB free, need 20000 MiB
+[2026-08-23 17:05:56] GPU free (45452 MiB) after 480s
+[2026-08-23 17:05:56] RUN   train f_un_aux -> logs/steer2_forget_aux_en.txt
+[2026-08-23 17:06:15] FAIL  train f_un_aux - see logs/steer2_forget_aux_en.txt
+[2026-08-23 17:06:15] prep phase incomplete
+[2026-08-23 17:06:15] === phase reference (f_ft ceiling) ===
+[2026-08-23 17:06:15] waiting for GPU: 16138 MiB free, need 20000 MiB
+[2026-08-23 17:15:16] GPU free (40300 MiB) after 540s
+[2026-08-23 17:15:16] RUN   f_ft baseline (en) -> logs/steer2_ft_baseline_en.txt
+[2026-08-23 17:15:28] FAIL  f_ft baseline (en) - see logs/steer2_ft_baseline_en.txt
+[2026-08-23 17:15:28] waiting for GPU: 12872 MiB free, need 20000 MiB
+[2026-08-23 17:21:59] GPU free (42708 MiB) after 390s
+[2026-08-23 17:21:59] RUN   f_ft baseline (fr) -> logs/steer2_ft_baseline_fr.txt
+[2026-08-23 17:22:11] FAIL  f_ft baseline (fr) - see logs/steer2_ft_baseline_fr.txt
+[2026-08-23 17:22:11] waiting for GPU: 12872 MiB free, need 20000 MiB
+[2026-08-23 17:32:12]   still waiting: 1186 MiB free (600s)
+[2026-08-23 17:42:13]   still waiting: 1186 MiB free (1200s)
+[2026-08-23 17:44:13] GPU free (34196 MiB) after 1320s
+[2026-08-23 17:44:13] RUN   f_ft baseline (iw) -> logs/steer2_ft_baseline_iw.txt
+[2026-08-23 17:44:25] FAIL  f_ft baseline (iw) - see logs/steer2_ft_baseline_iw.txt
+[2026-08-23 17:44:25] waiting for GPU: 174 MiB free, need 20000 MiB
+[2026-08-23 17:54:26]   still waiting: 4 MiB free (600s)
+[2026-08-23 17:56:56] GPU free (43018 MiB) after 750s
+[2026-08-23 17:56:56] RUN   f_ft baseline (ja) -> logs/steer2_ft_baseline_ja.txt
+[2026-08-23 17:57:42] DONE  f_ft baseline (ja)
+[2026-08-23 17:57:42] RUN   f_ft baseline (ar) -> logs/steer2_ft_baseline_ar.txt
+[2026-08-23 17:58:36] DONE  f_ft baseline (ar)
+[2026-08-23 17:58:36] === phase alllayers ===
+[2026-08-23 17:58:36] MISS  en/en alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en/en alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  iw/iw alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  iw/iw alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr_half/en alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr_half/en alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr_half/fr alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr_half/fr alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+iw_half/en alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+iw_half/en alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+iw_half/iw alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+iw_half/iw alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja_third/en alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja_third/en alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja_third/fr alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja_third/fr alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja_third/ja alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja_third/ja alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ar_third/en alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ar_third/en alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ar_third/fr alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ar_third/fr alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ar_third/ar alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ar_third/ar alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/en alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/en alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/fr alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/fr alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/ja alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/ja alllayers (random) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/ar alllayers (real) - no vector, run the prep phase first
+[2026-08-23 17:58:36] MISS  en+fr+ja+ar_quarter/ar alllayers (random) - no vector, run the prep phase first
+
+[2026-08-23 17:58:36] summary
+  SKIP    aux splits
+  FAIL    train f_un_aux (see logs/steer2_forget_aux_en.txt)
+  FAIL    f_ft baseline (en) (see logs/steer2_ft_baseline_en.txt)
+  FAIL    f_ft baseline (fr) (see logs/steer2_ft_baseline_fr.txt)
+  FAIL    f_ft baseline (iw) (see logs/steer2_ft_baseline_iw.txt)
+  OK      f_ft baseline (ja)
+  OK      f_ft baseline (ar)
+  MISSING en/en alllayers (real) (no vector)
+  MISSING en/en alllayers (random) (no vector)
+  MISSING iw/iw alllayers (real) (no vector)
+  MISSING iw/iw alllayers (random) (no vector)
+  MISSING en+fr_half/en alllayers (real) (no vector)
+  MISSING en+fr_half/en alllayers (random) (no vector)
+  MISSING en+fr_half/fr alllayers (real) (no vector)
+  MISSING en+fr_half/fr alllayers (random) (no vector)
+  MISSING en+iw_half/en alllayers (real) (no vector)
+  MISSING en+iw_half/en alllayers (random) (no vector)
+  MISSING en+iw_half/iw alllayers (real) (no vector)
+  MISSING en+iw_half/iw alllayers (random) (no vector)
+  MISSING en+fr+ja_third/en alllayers (real) (no vector)
+  MISSING en+fr+ja_third/en alllayers (random) (no vector)
+  MISSING en+fr+ja_third/fr alllayers (real) (no vector)
+  MISSING en+fr+ja_third/fr alllayers (random) (no vector)
+  MISSING en+fr+ja_third/ja alllayers (real) (no vector)
+  MISSING en+fr+ja_third/ja alllayers (random) (no vector)
+  MISSING en+fr+ar_third/en alllayers (real) (no vector)
+  MISSING en+fr+ar_third/en alllayers (random) (no vector)
+  MISSING en+fr+ar_third/fr alllayers (real) (no vector)
+  MISSING en+fr+ar_third/fr alllayers (random) (no vector)
+  MISSING en+fr+ar_third/ar alllayers (real) (no vector)
+  MISSING en+fr+ar_third/ar alllayers (random) (no vector)
+  MISSING en+fr+ja+ar_quarter/en alllayers (real) (no vector)
+  MISSING en+fr+ja+ar_quarter/en alllayers (random) (no vector)
+  MISSING en+fr+ja+ar_quarter/fr alllayers (real) (no vector)
+  MISSING en+fr+ja+ar_quarter/fr alllayers (random) (no vector)
+  MISSING en+fr+ja+ar_quarter/ja alllayers (real) (no vector)
+  MISSING en+fr+ja+ar_quarter/ja alllayers (random) (no vector)
+  MISSING en+fr+ja+ar_quarter/ar alllayers (real) (no vector)
+  MISSING en+fr+ja+ar_quarter/ar alllayers (random) (no vector)

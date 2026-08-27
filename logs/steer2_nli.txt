@@ -1,0 +1,77 @@
+Some weights of the model checkpoint at joeddav/xlm-roberta-large-xnli were not used when initializing XLMRobertaForSequenceClassification: ['roberta.pooler.dense.bias', 'roberta.pooler.dense.weight']
+- This IS expected if you are initializing XLMRobertaForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing XLMRobertaForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+loading joeddav/xlm-roberta-large-xnli
+aux_check_ft.json: baseline=0.9509 best=0.9509 (alpha=0.0, start=None) recovery=+0.0000
+aux_check_un.json: baseline=0.4178 best=0.4178 (alpha=0.0, start=None) recovery=+0.0000
+aya_aux_en+fr+ar_third_ar_alllayers.json: baseline=0.2042 best=0.0942 (alpha=0.05, start=all) recovery=-0.1100
+aya_aux_en+fr+ar_third_ar_alllayers_random.json: baseline=0.2042 best=0.1695 (alpha=0.05, start=all) recovery=-0.0347
+aya_aux_en+fr+ar_third_ar_sweep.json: baseline=0.2042 best=0.1151 (alpha=0.8, start=0) recovery=-0.0891
+aya_aux_en+fr+ar_third_ar_sweep_random.json: baseline=0.2042 best=0.1671 (alpha=0.8, start=4) recovery=-0.0371
+aya_aux_en+fr+ar_third_en_alllayers.json: baseline=0.2115 best=0.1878 (alpha=0.05, start=all) recovery=-0.0237
+aya_aux_en+fr+ar_third_en_alllayers_random.json: baseline=0.2115 best=0.2363 (alpha=0.05, start=all) recovery=+0.0248
+aya_aux_en+fr+ar_third_en_sweep.json: baseline=0.2115 best=0.3064 (alpha=0.5, start=3) recovery=+0.0949
+aya_aux_en+fr+ar_third_en_sweep_random.json: baseline=0.2115 best=0.3486 (alpha=0.5, start=7) recovery=+0.1371
+aya_aux_en+fr+ar_third_fr_alllayers.json: baseline=0.2351 best=0.2042 (alpha=0.05, start=all) recovery=-0.0309
+aya_aux_en+fr+ar_third_fr_alllayers_random.json: baseline=0.2351 best=0.2591 (alpha=0.05, start=all) recovery=+0.0240
+aya_aux_en+fr+ar_third_fr_sweep.json: baseline=0.2351 best=0.1081 (alpha=0.8, start=2) recovery=-0.1270
+aya_aux_en+fr+ar_third_fr_sweep_random.json: baseline=0.2351 best=0.2391 (alpha=0.8, start=4) recovery=+0.0040
+aya_aux_en+fr+ja+ar_quarter_ar_alllayers.json: baseline=0.2532 best=0.1827 (alpha=0.05, start=all) recovery=-0.0705
+aya_aux_en+fr+ja+ar_quarter_ar_alllayers_random.json: baseline=0.2532 best=0.2083 (alpha=0.05, start=all) recovery=-0.0449
+aya_aux_en+fr+ja+ar_quarter_ar_sweep.json: baseline=0.2532 best=0.1204 (alpha=0.8, start=2) recovery=-0.1328
+aya_aux_en+fr+ja+ar_quarter_ar_sweep_random.json: baseline=0.2532 best=0.2470 (alpha=0.8, start=4) recovery=-0.0062
+aya_aux_en+fr+ja+ar_quarter_en_alllayers.json: baseline=0.3073 best=0.2449 (alpha=0.05, start=all) recovery=-0.0623
+aya_aux_en+fr+ja+ar_quarter_en_alllayers_random.json: baseline=0.3073 best=0.2954 (alpha=0.1, start=all) recovery=-0.0119
+aya_aux_en+fr+ja+ar_quarter_en_sweep.json: baseline=0.3073 best=0.3323 (alpha=0.5, start=3) recovery=+0.0250
+aya_aux_en+fr+ja+ar_quarter_en_sweep_random.json: baseline=0.3073 best=0.3125 (alpha=0.5, start=29) recovery=+0.0052
+aya_aux_en+fr+ja+ar_quarter_fr_alllayers.json: baseline=0.3005 best=0.1742 (alpha=0.05, start=all) recovery=-0.1262
+aya_aux_en+fr+ja+ar_quarter_fr_alllayers_random.json: baseline=0.3005 best=0.2903 (alpha=0.05, start=all) recovery=-0.0102
+aya_aux_en+fr+ja+ar_quarter_fr_sweep.json: baseline=0.3005 best=0.1500 (alpha=0.8, start=4) recovery=-0.1505
+aya_aux_en+fr+ja+ar_quarter_fr_sweep_random.json: baseline=0.3005 best=0.2296 (alpha=0.8, start=29) recovery=-0.0709
+aya_aux_en+fr+ja+ar_quarter_ja_alllayers.json: baseline=0.1781 best=0.1366 (alpha=0.05, start=all) recovery=-0.0415  [zero-shot NLI]
+aya_aux_en+fr+ja+ar_quarter_ja_alllayers_random.json: baseline=0.1781 best=0.2674 (alpha=0.05, start=all) recovery=+0.0893  [zero-shot NLI]
+aya_aux_en+fr+ja+ar_quarter_ja_sweep.json: baseline=0.1781 best=0.1565 (alpha=0.8, start=6) recovery=-0.0216  [zero-shot NLI]
+aya_aux_en+fr+ja+ar_quarter_ja_sweep_random.json: baseline=0.1781 best=0.1928 (alpha=0.8, start=3) recovery=+0.0148  [zero-shot NLI]
+aya_aux_en+fr+ja_third_en_alllayers.json: baseline=0.2717 best=0.2010 (alpha=0.05, start=all) recovery=-0.0707
+aya_aux_en+fr+ja_third_en_alllayers_random.json: baseline=0.2717 best=0.3009 (alpha=0.05, start=all) recovery=+0.0292
+aya_aux_en+fr+ja_third_en_sweep.json: baseline=0.2717 best=0.3182 (alpha=0.5, start=3) recovery=+0.0465
+aya_aux_en+fr+ja_third_en_sweep_random.json: baseline=0.2717 best=0.3060 (alpha=0.5, start=5) recovery=+0.0343
+aya_aux_en+fr+ja_third_fr_alllayers.json: baseline=0.1969 best=0.1023 (alpha=0.05, start=all) recovery=-0.0946
+aya_aux_en+fr+ja_third_fr_alllayers_random.json: baseline=0.1969 best=0.1832 (alpha=0.1, start=all) recovery=-0.0136
+aya_aux_en+fr+ja_third_fr_sweep.json: baseline=0.1969 best=0.1958 (alpha=0.8, start=4) recovery=-0.0011
+aya_aux_en+fr+ja_third_fr_sweep_random.json: baseline=0.1969 best=0.1876 (alpha=0.8, start=8) recovery=-0.0093
+aya_aux_en+fr+ja_third_ja_alllayers.json: baseline=0.1174 best=0.2292 (alpha=0.05, start=all) recovery=+0.1118  [zero-shot NLI]
+aya_aux_en+fr+ja_third_ja_alllayers_random.json: baseline=0.1174 best=0.2031 (alpha=0.05, start=all) recovery=+0.0857  [zero-shot NLI]
+aya_aux_en+fr+ja_third_ja_sweep.json: baseline=0.1174 best=0.1230 (alpha=0.8, start=8) recovery=+0.0055  [zero-shot NLI]
+aya_aux_en+fr+ja_third_ja_sweep_random.json: baseline=0.1174 best=0.1902 (alpha=0.8, start=7) recovery=+0.0728  [zero-shot NLI]
+aya_aux_en+fr_half_en_alllayers.json: baseline=0.2218 best=0.2337 (alpha=0.05, start=all) recovery=+0.0118
+aya_aux_en+fr_half_en_alllayers_random.json: baseline=0.2218 best=0.2171 (alpha=0.1, start=all) recovery=-0.0047
+aya_aux_en+fr_half_en_sweep.json: baseline=0.2218 best=0.2885 (alpha=0.5, start=4) recovery=+0.0667
+aya_aux_en+fr_half_en_sweep_random.json: baseline=0.2218 best=0.2718 (alpha=0.5, start=4) recovery=+0.0499
+aya_aux_en+fr_half_fr_alllayers.json: baseline=0.1736 best=0.1845 (alpha=0.05, start=all) recovery=+0.0109
+aya_aux_en+fr_half_fr_alllayers_random.json: baseline=0.1736 best=0.2400 (alpha=0.05, start=all) recovery=+0.0663
+aya_aux_en+fr_half_fr_sweep.json: baseline=0.1736 best=0.1393 (alpha=0.8, start=3) recovery=-0.0343
+aya_aux_en+fr_half_fr_sweep_random.json: baseline=0.1736 best=0.2573 (alpha=0.8, start=1) recovery=+0.0836
+aya_aux_en+iw_half_en_alllayers.json: baseline=0.3417 best=0.2839 (alpha=0.05, start=all) recovery=-0.0578
+aya_aux_en+iw_half_en_alllayers_random.json: baseline=0.3417 best=0.3376 (alpha=0.1, start=all) recovery=-0.0041
+aya_aux_en+iw_half_en_sweep.json: baseline=0.3417 best=0.4355 (alpha=0.5, start=3) recovery=+0.0938
+aya_aux_en+iw_half_en_sweep_random.json: baseline=0.3417 best=0.4147 (alpha=0.5, start=5) recovery=+0.0730
+aya_aux_en+iw_half_iw_alllayers.json: baseline=0.1487 best=0.1444 (alpha=0.05, start=all) recovery=-0.0044  [zero-shot NLI]
+aya_aux_en+iw_half_iw_alllayers_random.json: baseline=0.1487 best=0.1119 (alpha=0.1, start=all) recovery=-0.0368  [zero-shot NLI]
+aya_aux_en+iw_half_iw_sweep.json: baseline=0.1487 best=0.1207 (alpha=0.8, start=4) recovery=-0.0280  [zero-shot NLI]
+aya_aux_en+iw_half_iw_sweep_random.json: baseline=0.1487 best=0.1923 (alpha=0.8, start=4) recovery=+0.0436  [zero-shot NLI]
+aya_aux_en_en_alllayers.json: baseline=0.2634 best=0.2924 (alpha=0.05, start=all) recovery=+0.0290
+aya_aux_en_en_alllayers_random.json: baseline=0.2634 best=0.2757 (alpha=0.1, start=all) recovery=+0.0123
+aya_aux_en_en_sweep.json: baseline=0.2634 best=0.3469 (alpha=0.5, start=6) recovery=+0.0835
+aya_aux_en_en_sweep_random.json: baseline=0.2634 best=0.2801 (alpha=0.5, start=8) recovery=+0.0166
+aya_aux_iw_iw_alllayers.json: baseline=0.0959 best=0.0618 (alpha=0.05, start=all) recovery=-0.0341  [zero-shot NLI]
+aya_aux_iw_iw_alllayers_random.json: baseline=0.0959 best=0.1145 (alpha=0.1, start=all) recovery=+0.0186  [zero-shot NLI]
+aya_aux_iw_iw_sweep.json: baseline=0.0959 best=0.0675 (alpha=0.8, start=5) recovery=-0.0284  [zero-shot NLI]
+aya_aux_iw_iw_sweep_random.json: baseline=0.0959 best=0.1266 (alpha=0.8, start=4) recovery=+0.0307  [zero-shot NLI]
+ft_baseline_ar.json: baseline=0.5953 best=0.5953 (alpha=0.0, start=None) recovery=+0.0000
+ft_baseline_en.json: baseline=0.9111 best=0.9111 (alpha=0.0, start=None) recovery=+0.0000
+ft_baseline_fr.json: baseline=0.7820 best=0.7820 (alpha=0.0, start=None) recovery=+0.0000
+ft_baseline_iw.json: baseline=0.6079 best=0.6079 (alpha=0.0, start=None) recovery=+0.0000  [zero-shot NLI]
+ft_baseline_ja.json: baseline=0.5214 best=0.5214 (alpha=0.0, start=None) recovery=+0.0000  [zero-shot NLI]
+
+NOTE: iw, ja are outside XNLI's 15 finetuning languages. Those NLI scores are zero-shot cross-lingual transfer; report chrF alongside them.

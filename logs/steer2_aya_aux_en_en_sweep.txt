@@ -1,0 +1,41 @@
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+forget set: ./dataset/forget01_en (40 questions, language=en)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.10it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  4.22it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  4.83it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.24it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.52it/s]
+model has 32 layers; mode=sweep, window=N+1=3, 30 window(s) x 1 alpha(s) + 1 baseline = 31 generation passes
+scoring on 'rougeL_recall' (language=en)
+
+  baseline (alpha=0)          ROUGE-L=0.4233  chrF=0.4411
+  alpha=0.5   start=0    layers=0-2   ROUGE-L=0.4407  chrF=0.4567  (rougeL_recall +0.0174)
+  alpha=0.5   start=1    layers=1-3   ROUGE-L=0.4430  chrF=0.4582  (rougeL_recall +0.0197)
+  alpha=0.5   start=2    layers=2-4   ROUGE-L=0.4565  chrF=0.4661  (rougeL_recall +0.0331)
+  alpha=0.5   start=3    layers=3-5   ROUGE-L=0.4523  chrF=0.4503  (rougeL_recall +0.0290)
+  alpha=0.5   start=4    layers=4-6   ROUGE-L=0.4657  chrF=0.4634  (rougeL_recall +0.0424)
+  alpha=0.5   start=5    layers=5-7   ROUGE-L=0.4367  chrF=0.4496  (rougeL_recall +0.0133)
+  alpha=0.5   start=6    layers=6-8   ROUGE-L=0.4563  chrF=0.4614  (rougeL_recall +0.0330)
+  alpha=0.5   start=7    layers=7-9   ROUGE-L=0.4025  chrF=0.4236  (rougeL_recall -0.0209)
+  alpha=0.5   start=8    layers=8-10  ROUGE-L=0.4048  chrF=0.4273  (rougeL_recall -0.0185)
+  alpha=0.5   start=9    layers=9-11  ROUGE-L=0.3552  chrF=0.3792  (rougeL_recall -0.0682)
+  alpha=0.5   start=10   layers=10-12  ROUGE-L=0.3297  chrF=0.3514  (rougeL_recall -0.0937)
+  alpha=0.5   start=11   layers=11-13  ROUGE-L=0.3316  chrF=0.3533  (rougeL_recall -0.0918)
+  alpha=0.5   start=12   layers=12-14  ROUGE-L=0.3000  chrF=0.3322  (rougeL_recall -0.1233)
+  alpha=0.5   start=13   layers=13-15  ROUGE-L=0.2583  chrF=0.2906  (rougeL_recall -0.1650)
+  alpha=0.5   start=14   layers=14-16  ROUGE-L=0.2597  chrF=0.2918  (rougeL_recall -0.1637)
+  alpha=0.5   start=15   layers=15-17  ROUGE-L=0.2756  chrF=0.2808  (rougeL_recall -0.1478)
+  alpha=0.5   start=16   layers=16-18  ROUGE-L=0.2253  chrF=0.2114  (rougeL_recall -0.1981)
+  alpha=0.5   start=17   layers=17-19  ROUGE-L=0.1948  chrF=0.1830  (rougeL_recall -0.2286)
+  alpha=0.5   start=18   layers=18-20  ROUGE-L=0.1423  chrF=0.1430  (rougeL_recall -0.2810)
+  alpha=0.5   start=19   layers=19-21  ROUGE-L=0.1174  chrF=0.0960  (rougeL_recall -0.3059)
+  alpha=0.5   start=20   layers=20-22  ROUGE-L=0.0595  chrF=0.0575  (rougeL_recall -0.3638)
+  alpha=0.5   start=21   layers=21-23  ROUGE-L=0.0482  chrF=0.0453  (rougeL_recall -0.3752)
+  alpha=0.5   start=22   layers=22-24  ROUGE-L=0.0500  chrF=0.0528  (rougeL_recall -0.3733)
+  alpha=0.5   start=23   layers=23-25  ROUGE-L=0.0323  chrF=0.0306  (rougeL_recall -0.3910)
+  alpha=0.5   start=24   layers=24-26  ROUGE-L=0.0290  chrF=0.0301  (rougeL_recall -0.3944)
+  alpha=0.5   start=25   layers=25-27  ROUGE-L=0.0582  chrF=0.0530  (rougeL_recall -0.3651)
+  alpha=0.5   start=26   layers=26-28  ROUGE-L=0.0612  chrF=0.0525  (rougeL_recall -0.3621)
+  alpha=0.5   start=27   layers=27-29  ROUGE-L=0.1023  chrF=0.0928  (rougeL_recall -0.3210)
+  alpha=0.5   start=28   layers=28-30  ROUGE-L=0.0327  chrF=0.0312  (rougeL_recall -0.3906)
+  alpha=0.5   start=29   layers=29-31  ROUGE-L=0.0171  chrF=0.0192  (rougeL_recall -0.4063)
+
+baseline: rougeL_recall=0.4233
+best:     rougeL_recall=0.4657 at alpha=0.5 start=4 (recovery +0.0424)
+saved -> /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/results_v2/aya_aux_en_en_sweep.json  (452.8s)

@@ -1,0 +1,43 @@
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+aux dataset: ./dataset/forget01_aux_en (40 prompts, language=en)
+[1/2] base model (f_ft): /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  2.62it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  2.15it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  2.00it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.57it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  2.40it/s]
+[2/2] auxiliary unlearned model (f_un_aux): /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/outputs/tofu_finetuned_5epoch_aya_10_lang_2e5/grad_diff_2e-05_forget01aux_5_en
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.03s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.09s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.11s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.19it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.07it/s]
+
+saved (32, 4096) to /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/vectors/aya_aux_en.pt  (40 prompts)
+every row is a unit vector; per-layer mean displacement (max 2.0):
+    0   0.01340  #
+    1   0.02330  ##
+    2   0.02982  ###
+    3   0.04400  ####
+    4   0.05645  ######
+    5   0.07056  #######
+    6   0.08221  ########
+    7   0.08670  #########
+    8   0.09168  #########
+    9   0.10340  ###########
+   10   0.11269  ############
+   11   0.10996  ###########
+   12   0.13092  ##############
+   13   0.12836  #############
+   14   0.12851  #############
+   15   0.14267  ###############
+   16   0.15035  ################
+   17   0.16034  #################
+   18   0.16198  #################
+   19   0.17258  ##################
+   20   0.17498  ##################
+   21   0.18086  ###################
+   22   0.19161  ####################
+   23   0.19714  #####################
+   24   0.19127  ####################
+   25   0.19170  ####################
+   26   0.20623  ######################
+   27   0.21577  #######################
+   28   0.25609  ###########################
+   29   0.31022  #################################
+   30   0.37257  ########################################
+   31   0.34736  #####################################
+peak displacement at layer 30 (0.37257)
+summary: /home_prod/scratch.rmoran_gpu/home_links/master/nlp/multilingual_unlearning/steering/vectors/aya_aux_en_summary.json
